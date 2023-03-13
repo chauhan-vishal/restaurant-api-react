@@ -1,22 +1,50 @@
 import React, { useEffect, useState } from 'react'
+import DataTable from 'react-data-table-component'
 import { NavLink } from 'react-router-dom'
+
 
 import Category from './components/Category'
 
-
 export default function Categories() {
-	const [categories, setCategories] = useState(null)
+	const [categories, setCategories] = useState([])
 
 	useEffect(() => {
+		console.log("16")
 		fetch("http://localhost:2503/api/category")
 			.then(res => {
 				return res.json()
 			})
-			.then(data => {
-				setCategories(data.document)
+			.then(response => {
+				setCategories(response.document)
 			})
 	}, [])
 
+	const columns = [
+		{
+			name: "Sr. No.",
+			selector: (row, index) => "#" + (index + 1)
+		},
+		{
+			name: "Image",
+			selector: row => ""
+		},
+		{
+			name: "Category Name",
+			selector: row => row.name
+		},
+		{
+			name: "Status",
+			selector: row => row.status
+		},
+		{
+			name: "Actions",
+			selector: row => <>
+				<NavLink to="invoice.html" className="btn btn-sm btn-primary">View</NavLink>
+				<NavLink to="#" className="btn btn-sm btn-soft-success ms-2">Edit</NavLink>
+				<NavLink to="#" className="btn btn-sm btn-soft-danger ms-2">Delete</NavLink>
+			</>
+		}
+	];
 
 	return (
 		<div className="container-fluid">
@@ -41,30 +69,17 @@ export default function Categories() {
 				<div className="row">
 					<div className="col-12 mt-4">
 						<div className="table-responsive shadow rounded">
-							<table className="table table-center bg-white mb-0" id="table">
-								<thead>
-									<tr>
-										<th className="border-bottom p-3">Sr. No.</th>
-										<th className="text-center border-bottom p-3" style={{ minWidth: "150px" }}>Image</th>
-										<th className="border-bottom p-3" style={{ minWidth: "200px" }}>Category Name</th>
-										<th className="text-center border-bottom p-3">Status</th>
-										<th className="text-end border-bottom p-3" style={{ minWidth: "200px" }}></th>
-									</tr>
-								</thead>
-								<tbody>
-									{
-										categories &&
-										categories.map((category, index) => {
-											return <Category key={index} category={category} index={index} />
-										})
-									}
-								</tbody>
-							</table>
+							<DataTable
+								columns={columns}
+								data={categories}
+								pagination
+								highlightOnHover
+							/>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	)
-}
 
+}
