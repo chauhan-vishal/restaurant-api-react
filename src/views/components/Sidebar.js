@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-export default function Sidebar() {
+export default function Sidebar({setActiveMenu}) {
+
 	return (
 		<nav id="sidebar" className="sidebar-wrapper sidebar-dark">
 			<div className="sidebar-content" data-simplebar style={{ height: "calc(100% - 60px)" }}>
 				<div className="sidebar-brand">
-					<NavLink to="index.html">
+					<NavLink to="/">
 						<img src="" height="24" className="logo-light-mode" alt="" />
 						<img src="" height="24" className="logo-dark-mode" alt="" />
 						<span className="sidebar-colored">
@@ -16,20 +17,17 @@ export default function Sidebar() {
 				</div>
 
 				<ul className="sidebar-menu">
-					<li><NavLink to="/"><i className="ti ti-home me-2"></i>Dashboard</NavLink></li>
-					<li><NavLink to="/Category"><i className="ti ti-home me-2"></i>Category</NavLink></li>
-					<li><NavLink to="/Cuisine"><i className="ti ti-home me-2"></i>Cuisine</NavLink></li>
-					<li><NavLink to="/SubCategory"><i className="ti ti-home me-2"></i>SubCategory</NavLink></li>
-					<li><NavLink to="/Item"><i className="ti ti-home me-2"></i>Item</NavLink></li>
-					<li><NavLink to="/Department"><i className="ti ti-home me-2"></i>Department</NavLink></li>
-					<li><NavLink to="/Employee"><i className="ti ti-home me-2"></i>Employee</NavLink></li>
-					<li><NavLink to="/Customer"><i className="ti ti-home me-2"></i>Customer</NavLink></li>
-					<li><NavLink to="/Table"><i className="ti ti-home me-2"></i>Table</NavLink></li>		
-					<li><NavLink to="/User"><i className="ti ti-home me-2"></i>User</NavLink></li>
-					<li><NavLink to="/Order"><i className="ti ti-home me-2"></i>Orders</NavLink></li>
-
-
-
+					<li onClick={() => { setActiveMenu('/') }}><NavLink to="/"><i className="ti ti-home me-2"></i>Dashboard</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Category') }}><NavLink to="/Category"><i className="ti ti-home me-2"></i>Category</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Cuisine') }}><NavLink to="/Cuisine"><i className="ti ti-home me-2"></i>Cuisine</NavLink></li>
+					<li onClick={() => { setActiveMenu('/SubCategory') }}><NavLink to="/SubCategory"><i className="ti ti-home me-2"></i>SubCategory</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Item') }}><NavLink to="/Item"><i className="ti ti-home me-2"></i>Item</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Department') }}><NavLink to="/Department"><i className="ti ti-home me-2"></i>Department</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Employee') }}><NavLink to="/Employee"><i className="ti ti-home me-2"></i>Employee</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Customer') }}><NavLink to="/Customer"><i className="ti ti-home me-2"></i>Customer</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Table') }}><NavLink to="/Table"><i className="ti ti-home me-2"></i>Table</NavLink></li>
+					<li onClick={() => { setActiveMenu('/User') }}><NavLink to="/User"><i className="ti ti-home me-2"></i>User</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Order') }}><NavLink to="/Order"><i className="ti ti-home me-2"></i>Orders</NavLink></li>
 				</ul>
 			</div>
 		</nav>

@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 
 export default function SubCategory({ subCategory, index }) {
     const {name, status} = subCategory
-    console.log(name)
     
     return (
         <tr>

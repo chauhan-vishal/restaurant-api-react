@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 
-export default function Dashboard() {
+export default function Dashboard({setActiveMenu}) {
+
+	useEffect(()=>{
+		setActiveMenu('/')
+	},[])
 
 	return (
 		<div className="container-fluid">
@@ -19,8 +23,8 @@ export default function Dashboard() {
 				</div>
 
 				<div className="row row-cols-xl-5 row-cols-md-2 row-cols-1">
-					<div className="col mt-4" style={{width: "auto"}}>
-						<NavLink to="#!" className="features feature-primary d-flex justify-content-between align-items-center bg-white rounded shadow p-3">
+					<div className="col mt-4" style={{width: "auto"}} onClick={() => { setActiveMenu('/Category') }}>
+						<NavLink to="/Category" className="features feature-primary d-flex justify-content-between align-items-center bg-white rounded shadow p-3">
 							<div className="d-flex align-items-center">
 								<div className="icon text-center rounded-pill">
 									<i className="ti ti-home me-2 fs-4 mb-0"></i>
@@ -32,8 +36,8 @@ export default function Dashboard() {
 							</div>
 						</NavLink>
 					</div>
-					<div className="col mt-4"  style={{width: "auto"}}>
-						<NavLink to="#!" className="features feature-primary d-flex justify-content-between align-items-center bg-white rounded shadow p-3">
+					<div className="col mt-4"  style={{width: "auto"}} onClick={() => { setActiveMenu('/Cuisine') }}>
+						<NavLink to="/Cuisine" className="features feature-primary d-flex justify-content-between align-items-center bg-white rounded shadow p-3">
 							<div className="d-flex align-items-center">
 								<div className="icon text-center rounded-pill">
 									<i className="ti ti-home me-2 fs-4 mb-0"></i>
@@ -45,8 +49,8 @@ export default function Dashboard() {
 							</div>
 						</NavLink>
 					</div>
-					<div className="col mt-4" style={{width: "auto"}}>
-						<NavLink to="#!" className="features feature-primary d-flex justify-content-between align-items-center bg-white rounded shadow p-3">
+					<div className="col mt-4" style={{width: "auto"}} onClick={() => { setActiveMenu('/SubCategory') }}>
+						<NavLink to="/SubCategory" className="features feature-primary d-flex justify-content-between align-items-center bg-white rounded shadow p-3">
 							<div className="d-flex align-items-center">
 								<div className="icon text-center rounded-pill">
 									<i className="ti ti-home me-2 fs-4 mb-0"></i>
