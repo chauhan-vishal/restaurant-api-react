@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import MaterialTable from 'material-table'
 
-import EditCategoryModal from './components/modals/AddEditModal'
-import DeleteCategoryModal from './components/modals/DeleteModal'
+import EditCategoryModal from './components/modals/Category_AddEditModal'
+import DeleteCategoryModal from './components/modals/Category_DeleteModal'
 
 export default function Cuisines() {
 	const [formData, setFormData] = useState({})

@@ -4,8 +4,8 @@ import MaterialTable from 'material-table'
 
 import $ from 'jquery'
 
-import AddEditModal from './components/modals/AddEditModal'
-import DeleteModal from './components/modals/DeleteModal'
+import Category_AddEditModal from './components/modals/Category_AddEditModal'
+import Category_DeleteModal from './components/modals/Category_DeleteModal'
 
 
 export default function Categories() {
@@ -278,10 +278,10 @@ export default function Categories() {
 			</div>
 
 			{/* AddEdit Category Modal */}
-			<AddEditModal master="Category" updateFormData={updateFormData} setImage={setImage} />
+			<Category_AddEditModal master="Category" updateFormData={updateFormData} setImage={setImage} />
 
 			{/* Delete Category Modal */}
-			<DeleteModal master="Category" handleClick={deleteCategory} />
+			<Category_DeleteModal master="Category" handleClick={deleteCategory} />
 		</div>
 	)
 }

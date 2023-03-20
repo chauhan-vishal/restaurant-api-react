@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-export default function AddEditModal({ master, updateFormData, setImage }) {
+export default function Category_AddEditModal({ master, updateFormData, setImage }) {
 
     return (
         <div className="modal fade" id={"edit" + master} tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">
