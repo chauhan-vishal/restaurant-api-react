@@ -71,17 +71,17 @@ function App() {
 						<Topbar />
 
 						<Routes>
-							<Route path="/" element={<Dashboard setActiveMenu={setActiveMenu} />} />
-							<Route path="/Category" element={<Categoies />} />
-							<Route path="/Cuisine" element={<Cusines />} />
-							<Route path="/SubCategory" element={<SubCategories />} />
-							<Route path="/Item" element={<Items />} />
-							<Route path="/Department" element={<Departments />} />
-							<Route path="/Employee" element={<Employees />} />
-							<Route path="/Customer" element={<Customers />} />
-							<Route path="/Table" element={<Tables />} />
-							<Route path="/User" element={<Users />} />
-							<Route path="/Order" element={<Orders />} />
+							<Route exact path="/" element={<Dashboard setActiveMenu={setActiveMenu} />} />
+							<Route exact path="/Category" element={<Categoies />} />
+							<Route exact path="/Cuisine" element={<Cusines />} />
+							<Route exact path="/SubCategory" element={<SubCategories />} />
+							<Route exact path="/Item" element={<Items />} />
+							<Route exact path="/Department" element={<Departments />} />
+							<Route exact path="/Employee" element={<Employees />} />
+							<Route exact path="/Customer" element={<Customers />} />
+							<Route exact path="/Table" element={<Tables />} />
+							<Route exact path="/User" element={<Users />} />
+							<Route exact path="/Order" element={<Orders />} />
 						</Routes>
 
 						<Footer />

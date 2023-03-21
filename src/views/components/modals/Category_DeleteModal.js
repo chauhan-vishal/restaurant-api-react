@@ -12,7 +12,7 @@ export default function Category_DeleteModal({ master, handleClick }) {
                     </div>
                     <div className="modal-body">
                         <div className="bg-white p-3 rounded box-shadow" style={{ textAlign: "left", padding: "0px !important", fontSize: "1.2rem" }}>
-                            <input type="hidden" id="hdnCategoryId" defaultValue={""} />
+                            <input type="hidden" id={"hdn"+master+"Id"} defaultValue={""} />
                             <p className="text-muted mb-0" >Are you sure you want to delete <label style={{ fontWeight: "700", color: "red" }} id="delete-name">  </label> ?</p>
                         </div>
                     </div>
