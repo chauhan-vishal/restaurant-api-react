@@ -9,8 +9,8 @@ export default function Dashboard({setActiveMenu}) {
 	},[])
 
 	return (
-		<div className="container-fluid">
-			<div className="layout-specing">
+	<div className="container-fluid">
+		<div className="layout-specing">
 				<div className="d-md-flex justify-content-between align-items-center">
 					<h5 className="mb-0">Dashboard</h5>
 

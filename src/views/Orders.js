@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import Order from './components/Order'
 
 
 export default function Orders() {
@@ -51,12 +50,7 @@ export default function Orders() {
 									</tr>
 								</thead>
 								<tbody>
-									{
-										Orders &&
-										Orders.map((ord, index) => {
-											return <Order key={index} Order={ord} index={index} />
-										})
-									}
+									
 								</tbody>
 							</table>
 						</div>

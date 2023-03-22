@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 
-import SubCategory from './components/SubCategory'
-
 export default function SubCategories() {
 	const [SubCategories, setSubCategories] = useState(null)
 
@@ -52,12 +50,7 @@ export default function SubCategories() {
 									</tr>
 								</thead>
 								<tbody>
-									{
-										SubCategories &&
-										SubCategories.map((subCategory, index) => {
-											return <SubCategory key={index} subCategory={SubCategories} index={index} />
-										})
-									}
+									
 								</tbody>
 							</table>
 						</div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function Employee_AddEditModal({ master, setImage }) {
+export default function Employee_AddEditModal({ master, setImage, updateFormData }) {
     const [departments, setDepartments] = useState([])
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">First Name <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="first" id="first" type="text" className="form-control ps-5" placeholder="First Name :" />
+                                            <input name="first" id="first" type="text" className="form-control ps-5" placeholder="First Name :" onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -38,15 +38,15 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Gender <span className="text-danger">*</span></label>
                                         <div className="custom-control custom-radio custom-control-inline">
                                             <div className="form-check mb-0 me-3" style={{ display: "inline-block" }}>
-                                                <input className="form-check-input" type="radio" name="gender" value="M" id="rbdMale" />
+                                                <input className="form-check-input" type="radio" name="gender" value="M" id="rbdMale" onChange={updateFormData} />
                                                 <label className="form-check-label" htmlFor="rbdMale">Male</label>
                                             </div>
                                             <div className="form-check mb-0 me-3" style={{ display: "inline-block" }}>
-                                                <input className="form-check-input" type="radio" name="gender" value="F" id="rbdFemale" />
+                                                <input className="form-check-input" type="radio" name="gender" value="F" id="rbdFemale" onChange={updateFormData} />
                                                 <label className="form-check-label" htmlFor="rbdFemale">Female</label>
                                             </div>
                                             <div className="form-check mb-0" style={{ display: "inline-block" }}>
-                                                <input className="form-check-input" type="radio" name="gender" value="O" id="rbdOther" />
+                                                <input className="form-check-input" type="radio" name="gender" value="O" id="rbdOther" onChange={updateFormData} />
                                                 <label className="form-check-label" htmlFor="rbdOther">Other</label>
                                             </div>
                                         </div>
@@ -59,14 +59,14 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Last Name <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="last" id="last" type="text" className="form-control ps-5" placeholder="First Name :" />
+                                            <input name="last" id="last" type="text" className="form-control ps-5" placeholder="First Name :" onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
                                     <div className="mb-3">
                                         <label className="form-label">Department <span className="text-danger">*</span></label>
-                                        <select name="departmentId" id='departmentId' className="form-select form-control" aria-label="Default select example" >
+                                        <select name="departmentId" id='departmentId' className="form-select form-control" aria-label="Default select example" onChange={updateFormData}>
                                             <option defaultChecked value="" defaultValue>Open this select menu</option>
                                             {
                                                 departments && departments.map((department, index) => {
@@ -85,7 +85,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Contact <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="contact" id="contact" type="text" className="form-control ps-5" placeholder="Contact :" />
+                                            <input name="contact" id="contact" type="text" className="form-control ps-5" placeholder="Contact :" onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">E-Mail <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="email" id="email" type="email" className="form-control ps-5" placeholder="E-Mail :" />
+                                            <input name="email" id="email" type="email" className="form-control ps-5" placeholder="E-Mail :" onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Date of Birth <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="dob" id="dob" type="date" className="form-control ps-5" />
+                                            <input name="dob" id="dob" type="date" className="form-control ps-5" onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Date of Joining <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="doj" id="doj" type="date" className="form-control ps-5" />
+                                            <input name="doj" id="doj" type="date" className="form-control ps-5" onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Street <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="street" id="street" type="text" className="form-control ps-5" placeholder='Street :' />
+                                            <input name="street" id="street" type="text" className="form-control ps-5" placeholder='Street :' onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">City  <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="city" id="city" type="text" className="form-control ps-5" placeholder='City :' />
+                                            <input name="city" id="city" type="text" className="form-control ps-5" placeholder='City :' onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">State <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="state" id="state" type="text" className="form-control ps-5" placeholder='State :' />
+                                            <input name="state" id="state" type="text" className="form-control ps-5" placeholder='State :' onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Country  <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="country" id="country" type="text" className="form-control ps-5" placeholder='Country :' />
+                                            <input name="country" id="country" type="text" className="form-control ps-5" placeholder='Country :' onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">PIN Code <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="pincode" id="pincode" type="text" className="form-control ps-5" placeholder='PIN Code :' />
+                                            <input name="pincode" id="pincode" type="text" className="form-control ps-5" placeholder='PIN Code :' onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Salary  <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="salary" id="salary" type="text" className="form-control ps-5" placeholder='Salary :' />
+                                            <input name="salary" id="salary" type="text" className="form-control ps-5" placeholder='Salary :' onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +185,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Daily Allowance <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="da" id="da" type="text" className="form-control ps-5" placeholder='Daily Allowance :' />
+                                            <input name="da" id="da" type="text" className="form-control ps-5" placeholder='Daily Allowance :' onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +194,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                         <label className="form-label">Bonus  <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
-                                            <input name="bonus" id="bonus" type="text" className="form-control ps-5" placeholder='Bonus :' />
+                                            <input name="bonus" id="bonus" type="text" className="form-control ps-5" placeholder='Bonus :' onChange={updateFormData} />
                                         </div>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@ export default function Employee_AddEditModal({ master, setImage }) {
                                     <div className="mb-3">
                                         <span className="form-label">Status</span>
                                         <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" name="status" id="status" />
+                                            <input className="form-check-input" type="checkbox" name="status" id="status" onChange={updateFormData} />
                                             <label className="form-check-label" htmlFor="status">Active</label>
                                         </div>
                                     </div>

@@ -11,9 +11,9 @@ export default function Department_AddEditModal({ master, updateFormData }) {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body p-4">
-                        <form method='POST' encType="multipart/form-data">
+                        <form encType="multipart/form-data">
                             <div className="bg-white rounded box-shadow" style={{ textAlign: "left", padding: "0px !important", fontSize: "1.2rem" }}>
-                                <input type="hidden" id="hdnCategoryID" />
+                                <input type="hidden" id="hdnDepartmentId" />
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">

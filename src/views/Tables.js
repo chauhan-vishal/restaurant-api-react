@@ -36,8 +36,6 @@ export default function Tables() {
 		})
 	}
 
-	
-
 	function showAlert(flag, operation) {
 		switch (operation) {
 			case "add":
@@ -46,28 +44,13 @@ export default function Tables() {
 			case "delete":
 				(flag) ? alert("Table Deleted Successfully") : alert("Error Occured");
 				break;
-		}
-
-		if (flag) {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert" style={{ position: "absolute", top: "100px", minWidth: "350px", left: "50%" }}>
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
-			//}
-			//else {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert">
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
+			case "edit":
+				(flag) ? alert("Table Updated Successfully") : alert("Error Occured");
+				break;
 		}
 	}
 
 	const addTable = (e) => {
-		console.log(formData)
 		fetch("http://localhost:2503/api/table/new", {
 			method: "POST",
 			headers: {
@@ -77,12 +60,12 @@ export default function Tables() {
 		})
 			.then(response => response = response.json())
 			.then(response => {
-				console.log(response)
 				if (response.success) {
 					fetchData()
 					showAlert(true, "add")
 				}
 				else {
+					alert(response.msg)
 					showAlert(false, "add")
 				}
 			})
@@ -118,10 +101,11 @@ export default function Tables() {
 			.then(response => {
 				if (response.success) {
 					fetchData()
-					showAlert(true, "add")
+					showAlert(true, "edit")
 				}
 				else {
-					showAlert(false, "add")
+					alert(response.msg)
+					showAlert(false, "edit")
 				}
 			})
 	}
@@ -162,14 +146,17 @@ export default function Tables() {
 	}
 
 	const updateModalValues = (table) => {
-		document.querySelector("#hdnTableId").value = table._id
-		document.querySelector("#tableNo").value = table.tableNO
+		formData = ({
+			...formData,
+			tableId: table._id,
+		})
+		document.querySelector("#tableNo").value = table.tableNo
 		document.querySelector("#noOfSeat").value = table.noOfSeat
 		document.querySelector("#status").checked = (table.status === "active") ? true : false
 	}
 
 	const setDeleteModalProps = (table) => {
-		document.querySelector("#delete-name").innerHTML = table.tableNO
+		document.querySelector("#delete-name").innerHTML = "Table No. " + table.tableNo
 		document.querySelector("#hdnTableId").value = table._id
 	}
 
@@ -189,7 +176,7 @@ export default function Tables() {
 		{
 			title: "No of Seats", field: "noOfSeat", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
-		
+
 		{
 			title: "Status",
 			render: item => {
@@ -230,7 +217,7 @@ export default function Tables() {
 					</div>
 
 					<div className="mt-4 mt-sm-0">
-						<NavLink to="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTable" onClick={() => { setModal('Add') }}>Add Table</NavLink>
+						<button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTable" onClick={() => { setModal('Add') }}>Add Table</button>
 					</div>
 				</div>
 
@@ -262,10 +249,10 @@ export default function Tables() {
 			</div>
 
 			{/* AddEdit Table Modal */}
-			<Table_AddEditModal master="Table" updateFormData={updateFormData}  />
+			<Table_AddEditModal master="Table" updateFormData={updateFormData} />
 
 			{/* Delete Table Modal */}
-			<Tables_DeleteModal master="Tables" handleClick={deleteTable} />
+			<Tables_DeleteModal master="Table" handleClick={deleteTable} />
 		</div>
 	)
 }

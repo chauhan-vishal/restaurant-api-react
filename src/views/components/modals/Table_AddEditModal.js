@@ -20,7 +20,7 @@ export default function Table_AddEditModal({ master, updateFormData }) {
                                             <label className="form-label">Table No <span className="text-danger">*</span></label>
                                             <div className="form-icon position-relative">
                                                 <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="tableNo" id="tableNo" type="text" className="form-control ps-5" placeholder="Table NO :" onChange={updateFormData} />
+                                                <input name="tableNo" id="tableNo" type="text" className="form-control ps-5" placeholder="Table No :" onChange={updateFormData} />
                                             </div>
                                         </div>
                                     </div>

@@ -25,7 +25,7 @@ export default function Customers() {
 				setCustomers(documents)
 			})
 
-		}
+	}
 
 	useEffect(() => {
 		fetchData()
@@ -39,9 +39,8 @@ export default function Customers() {
 		})
 	}
 
-
-
 	function showAlert(flag, operation) {
+		console.log(operation)
 		switch (operation) {
 			case "add":
 				(flag) ? alert("Customer Added Successfully") : alert("Error Occured");
@@ -49,28 +48,13 @@ export default function Customers() {
 			case "delete":
 				(flag) ? alert("Customer Deleted Successfully") : alert("Error Occured");
 				break;
-		}
-
-		if (flag) {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert" style={{ position: "absolute", top: "100px", minWidth: "350px", left: "50%" }}>
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
-			//}
-			//else {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert">
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
+			case "edit":
+				(flag) ? alert("Customer Updated Successfully") : alert("Error Occured");
+				break;
 		}
 	}
 
 	const addCustomer = (e) => {
-		console.log(formData)
 		fetch("http://localhost:2503/api/customer/new", {
 			method: "POST",
 			headers: {
@@ -86,6 +70,7 @@ export default function Customers() {
 					showAlert(true, "add")
 				}
 				else {
+					alert(response.msg)
 					showAlert(false, "add")
 				}
 			})
@@ -121,10 +106,10 @@ export default function Customers() {
 			.then(response => {
 				if (response.success) {
 					fetchData()
-					showAlert(true, "add")
+					showAlert(true, "edit")
 				}
 				else {
-					showAlert(false, "add")
+					showAlert(false, "edit")
 				}
 			})
 	}
@@ -164,23 +149,30 @@ export default function Customers() {
 		document.querySelector("#email").value = ""
 		document.querySelector("#contact").value = ""
 		//document.querySelector("#gender").value = ""
-	//	document.querySelector("#date").value = ""
+		//	document.querySelector("#date").value = ""
 		document.querySelector("#status").checked = false
 	}
 
 	const updateModalValues = (customer) => {
-		document.querySelector("#hdnCustomerId").value = customer._id
+		formData = ({
+			...formData,
+			customerId: customer._id,
+			email: customer.email
+		})
+
+		const gender = { "M": "rbdMale", "F": "rbdFemale", "O": "rbdOther" }
+
 		document.querySelector("#first").value = customer.name.first
 		document.querySelector("#last").value = customer.name.last
 		document.querySelector("#email").value = customer.email
 		document.querySelector("#contact").value = customer.contact
-		//document.querySelector("#gender").value = customer.gender
+		document.querySelector("#" + gender[customer.gender]).checked = true
 		//document.querySelector("#date").value = customer.date
 		document.querySelector("#status").checked = (customer.status === "active") ? true : false
 	}
 
 	const setDeleteModalProps = (customer) => {
-		document.querySelector("#delete-name").innerHTML = customer.name.first + "  "+customer.name.last
+		document.querySelector("#delete-name").innerHTML = customer.name.first + "  " + customer.name.last
 		document.querySelector("#hdnCustomerId").value = customer._id
 	}
 

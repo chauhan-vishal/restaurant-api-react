@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import Item from './components/Item'
 
 
 export default function Items() {
@@ -51,12 +50,7 @@ export default function Items() {
 									</tr>
 								</thead>
 								<tbody>
-									{
-										Items &&
-										Items.map((item, index) => {
-											return <Item key={index} item={Items} index={index} />
-										})
-									}
+									
 								</tbody>
 							</table>
 						</div>

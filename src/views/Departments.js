@@ -37,8 +37,6 @@ export default function Departments() {
 		})
 	}
 
-	
-
 	function showAlert(flag, operation) {
 		switch (operation) {
 			case "add":
@@ -47,23 +45,6 @@ export default function Departments() {
 			case "delete":
 				(flag) ? alert("Department Deleted Successfully") : alert("Error Occured");
 				break;
-		}
-
-		if (flag) {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert" style={{ position: "absolute", top: "100px", minWidth: "350px", left: "50%" }}>
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
-			//}
-			//else {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert">
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
 		}
 	}
 
@@ -163,7 +144,11 @@ export default function Departments() {
 	}
 
 	const updateModalValues = (department) => {
-		document.querySelector("#hdnDepartmentId").value = department._id
+		formData = ({
+			...formData,
+			departmentId: department._id
+		})
+		
 		document.querySelector("#name").value = department.name
 		document.querySelector("#desc").value = department.desc
 		document.querySelector("#status").checked = (department.status === "active") ? true : false
@@ -259,7 +244,7 @@ export default function Departments() {
 			</div>
 
 			{/* AddEdit Department Modal */}
-			<Department_AddEditModal master="Department" updateFormData={updateFormData}  />
+			<Department_AddEditModal master="Department" updateFormData={updateFormData} />
 
 			{/* Delete Department Modal */}
 			<Departments_DeleteModal master="Department" handleClick={deleteDepartment} />

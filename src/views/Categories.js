@@ -217,7 +217,7 @@ export default function Categories() {
 		{
 			title: "Actions", render: (item) => {
 				return <>
-					<button className="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target={"#editCategory"} onClick={() => { setModal("Edit", item) }}>
+					<button className="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target={"#categoryModal"} onClick={() => { setModal("Edit", item) }}>
 						<i className="ti ti-edit"></i>
 					</button>
 					<button className="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target={"#deleteCategory"} onClick={() => { setDeleteModalProps(item) }}>
@@ -227,7 +227,6 @@ export default function Categories() {
 			}
 		}
 	];
-
 
 	return (
 		<div className="container-fluid">
@@ -246,7 +245,7 @@ export default function Categories() {
 					</div>
 
 					<div className="mt-4 mt-sm-0">
-						<NavLink to="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCategory" onClick={() => { setModal('Add') }}>Add Category</NavLink>
+						<NavLink to="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoryModal" onClick={() => { setModal('Add') }}>Add Category</NavLink>
 					</div>
 				</div>
 

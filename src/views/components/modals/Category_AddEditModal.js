@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 export default function Category_AddEditModal({ master, updateFormData, setImage }) {
 
     return (
-        <div className="modal fade" id={"edit" + master} tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">
+        <div className="modal fade" id="categoryModal" tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content rounded shadow border-0">
                     <div className="modal-header border-bottom">

@@ -29,32 +29,12 @@ export default function Employees() {
 		fetchData()
 	}, [])
 
-	const setFormData = () => {
-		return (
-			{
-				...formData,
-				first: document.querySelector("#first").value,
-				last: document.querySelector("#last").value,
-				gender:
-					(document.querySelector("#rbdMale").checked) ? "M" :
-						(document.querySelector("#rbdFemale").checked) ? "F" :
-							(document.querySelector("#rbdOther").checked) ? "O" : "",
-				contact: document.querySelector("#contact").value,
-				email: document.querySelector("#email").value,
-				street: document.querySelector("#street").value,
-				city: document.querySelector("#city").value,
-				state: document.querySelector("#state").value,
-				country: document.querySelector("#country").value,
-				pincode: document.querySelector("#pincode").value,
-				dob: document.querySelector("#dob").value,
-				doj: document.querySelector("#doj").value,
-				departmentId: document.querySelector("#departmentId").value,
-				salary: document.querySelector("#salary").value,
-				da: document.querySelector("#da").value,
-				bonus: document.querySelector("#bonus").value,
-				status: document.querySelector("#status").checked
-			}
-		)
+	const updateFormData = (e) => {
+		const { name, value, type, checked } = e.target
+		formData = ({
+			...formData,
+			[name]: (type === "checkbox") ? (checked) ? "active" : "inactive" : value
+		})
 	}
 
 	const setImage = (e) => {
@@ -84,7 +64,6 @@ export default function Employees() {
 	}
 
 	const addEmployee = (e) => {
-		formData = setFormData();
 		fetch("http://localhost:2503/api/employee/new", {
 			method: "POST",
 			headers: {
@@ -99,6 +78,7 @@ export default function Employees() {
 					showAlert(true, "add")
 				}
 				else {
+					alert(response.msg)
 					showAlert(false, "add")
 				}
 			})
@@ -123,8 +103,6 @@ export default function Employees() {
 	}
 
 	const updateEmployee = (e) => {
-		formData = setFormData();
-
 		fetch("http://localhost:2503/api/employee/update/", {
 			method: "PUT",
 			headers: {
@@ -328,7 +306,7 @@ export default function Employees() {
 			</div>
 
 			{/* AddEdit Employee Modal */}
-			<Employee_AddEditModal master="Employee" setImage={setImage} setFormData={setFormData} />
+			<Employee_AddEditModal master="Employee" setImage={setImage} updateFormData={updateFormData} />
 
 			{/* Delete Employee Modal */}
 			<Category_DeleteModal master="Employee" handleClick={deleteEmployee} />
