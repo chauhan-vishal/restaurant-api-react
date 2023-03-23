@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 
-export default function Category_AddEditModal({ master, updateFormData, setImage }) {
+export default function Tag_AddEditModal({ master, updateFormData}) {
 
     return (
-        <div className="modal fade" id="categoryModal" tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">
+        <div className="modal fade" id="TagModal" tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content rounded shadow border-0">
                     <div className="modal-header border-bottom">
@@ -13,30 +13,19 @@ export default function Category_AddEditModal({ master, updateFormData, setImage
                     <div className="modal-body p-4">
                         <form method='POST' encType="multipart/form-data">
                             <div className="bg-white rounded box-shadow" style={{ textAlign: "left", padding: "0px !important", fontSize: "1.2rem" }}>
-                                <input type="hidden" id="hdnCategoryID" />
+                                <input type="hidden" id="hdnTagID" />
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
                                             <label className="form-label">Name <span className="text-danger">*</span></label>
                                             <div className="form-icon position-relative">
                                                 <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="name" id="name" type="text" className="form-control ps-5" placeholder="Category Name :" onChange={updateFormData} />
+                                                <input name="name" id="name" type="text" className="form-control ps-5" placeholder="Tag Name :" onChange={updateFormData} />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="mb-3">
-                                            <label className="form-label">Description <span className="text-danger">*</span></label>
-                                            <div className="form-icon position-relative">
-                                                <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <textarea name="desc" id="desc" rows="4" className="form-control ps-5" placeholder="Description :" onChange={updateFormData} ></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row">
+                                {/* <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
                                             <label className="form-label">Thumbnail <span className="text-danger">*</span></label>
@@ -46,7 +35,7 @@ export default function Category_AddEditModal({ master, updateFormData, setImage
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
@@ -62,7 +51,7 @@ export default function Category_AddEditModal({ master, updateFormData, setImage
                         </form>
                     </div>
                     <div className="modal-footer">
-                        <button type="submit" id="btnSubmit" className="btn btn-primary" data-bs-dismiss="modal">Add Category</button>
+                        <button type="submit" id="btnSubmit" className="btn btn-primary" data-bs-dismiss="modal">Add Tag</button>
                     </div>
                 </div>
             </div>
