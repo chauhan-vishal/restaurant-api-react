@@ -5,18 +5,16 @@ import Dashboard from "./views/Dashboard";
 import Sidebar from "./views/components/Sidebar";
 import Footer from "./views/components/Footer";
 import Topbar from "./views/components/Topbar";
-import Tags from "./views/Tags";
-// import Categoies from "./views/Categories";
 import Cusines from "./views/Cusines";
-import SubCategories from "./views/SubCategories";
+import Categories from "./views/Categories";
 import Items from "./views/Items";
+import Tags from "./views/Tags";
 import Departments from "./views/Departments";
 import Employees from "./views/Employees";
 import Customers from "./views/Customers";
 import Tables from "./views/Tables";
 import Users from "./views/Users";
 import Orders from "./views/Orders";
-
 
 import "../src/resources/landrick/css/bootstrap.min.css"
 import "../src/resources/landrick/css/simplebar.css"
@@ -75,7 +73,7 @@ function App() {
 							<Route exact path="/" element={<Dashboard setActiveMenu={setActiveMenu} />} />
 							<Route exact path="/Tag" element={<Tags />} />
 							<Route exact path="/Cuisine" element={<Cusines />} />
-							<Route exact path="/SubCategory" element={<SubCategories />} />
+							<Route exact path="/Category" element={<Categories />} />
 							<Route exact path="/Item" element={<Items />} />
 							<Route exact path="/Department" element={<Departments />} />
 							<Route exact path="/Employee" element={<Employees />} />
