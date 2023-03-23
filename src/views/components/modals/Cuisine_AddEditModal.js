@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-export default function Cuisine_AddEditModal({ master, updateFormData, setImage, categories }) {
+export default function Cuisine_AddEditModal({ master, updateFormData, setImage }) {
 
     return (
         <div className="modal fade" id={"edit" + master} tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">
@@ -25,24 +25,6 @@ export default function Cuisine_AddEditModal({ master, updateFormData, setImage,
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="mb-3">
-                                            <label className="form-label">Category Name <span className="text-danger">*</span></label>
-                                            <select name="categoryId" id='categoryId' className="form-select form-control" aria-label="Default select example" onChange={updateFormData}>
-                                                <option defaultChecked value="" defaultValue>Open this select menu</option>
-                                                {
-                                                    categories && categories.map((category, index) => {
-                                                        return (
-                                                            <option key={index} value={category._id}>{category.name}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">

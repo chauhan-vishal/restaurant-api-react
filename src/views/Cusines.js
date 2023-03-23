@@ -11,7 +11,6 @@ import Cuisine_DeleteModal from './components/modals/Cuisine_DeleteModal'
 export default function Cuisnes() {
 	let formData = new FormData();
 	const [cuisines, setCuisines] = useState([])
-	const [categories, setCategories] = useState([])
 
 	function fetchData() {
 		fetch("http://localhost:2503/api/cuisine")
@@ -24,14 +23,6 @@ export default function Cuisnes() {
 					return item
 				})
 				setCuisines(documents)
-			})
-
-
-		fetch("http://localhost:2503/api/category")
-			.then(res => res.json())
-			.then(res => {
-				// console.log(res.document)
-				setCategories(res.document)
 			})
 	}
 
@@ -67,28 +58,13 @@ export default function Cuisnes() {
 			case "delete":
 				(flag) ? alert("Cuisine Deleted Successfully") : alert("Error Occured");
 				break;
-		}
-
-		if (flag) {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert" style={{ position: "absolute", top: "100px", minWidth: "350px", left: "50%" }}>
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
-			//}
-			//else {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert">
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
+			case "edit":
+				(flag) ? alert("Cuisine Updated Successfully") : alert("Error Occured");
+				break;
 		}
 	}
 
 	const addCuisine = (e) => {
-		console.log(formData)
 		fetch("http://localhost:2503/api/cuisine/new", {
 			method: "POST",
 			headers: {
@@ -98,7 +74,6 @@ export default function Cuisnes() {
 		})
 			.then(response => response = response.json())
 			.then(response => {
-				console.log(response)
 				if (response.success) {
 					fetchData()
 					showAlert(true, "add")
@@ -139,20 +114,21 @@ export default function Cuisnes() {
 			.then(response => {
 				if (response.success) {
 					fetchData()
-					showAlert(true, "add")
+					showAlert(true, "edit")
 				}
 				else {
-					showAlert(false, "add")
+					showAlert(false, "edit")
 				}
 			})
 	}
 
 	const toggleStatus = (cuisineId) => {
+		console.log(cuisineId)
 		fetch("http://localhost:2503/api/cuisine/update/status/" + cuisineId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
-			},
+			}
 		})
 			.then(response => response.json())
 			.then(response => {
@@ -179,7 +155,6 @@ export default function Cuisnes() {
 	const clearModalValues = () => {
 		document.querySelector("#name").value = ""
 		document.querySelector("#desc").value = ""
-		document.querySelector("#categoryId").value = ""
 		// document.querySelector("#img").value = ""
 		document.querySelector("#status").checked = false
 	}
@@ -187,13 +162,11 @@ export default function Cuisnes() {
 	const updateModalValues = (cuisine) => {
 		formData = ({
 			...formData,
-			categoryId: cuisine._id
+			cuisineId: cuisine._id
 		})
 		document.querySelector("#hdnCuisineId").value = cuisine._id
 		document.querySelector("#name").value = cuisine.name
 		document.querySelector("#desc").value = cuisine.desc
-		document.querySelector("#categoryId").value = cuisine.categoryId._id
-		console.log(cuisine)
 		document.querySelector("#status").checked = (cuisine.status === "active") ? true : false
 	}
 
@@ -214,9 +187,6 @@ export default function Cuisnes() {
 		},
 		{
 			title: "Cuisine Name", field: "name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
-		},
-		{
-			title: "Category Name", field: "name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Image",
@@ -294,7 +264,7 @@ export default function Cuisnes() {
 			</div>
 
 			{/* AddEdit Cuisine Modal */}
-			<Cuisine_AddEditModal master="Cuisine" updateFormData={updateFormData} setImage={setImage} categories={categories} />
+			<Cuisine_AddEditModal master="Cuisine" updateFormData={updateFormData} setImage={setImage} />
 
 			{/* Delete Cuisine Modal */}
 			<Cuisine_DeleteModal master="Cuisine" handleClick={deleteCuisine} />
