@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import $ from "jquery";
+
 export default function Item_AddEditModal({ master, setImage, updateFormData }) {
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
@@ -17,6 +19,16 @@ export default function Item_AddEditModal({ master, setImage, updateFormData }) 
                 setTags(res.document)
             })
     }, [])
+
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    });
 
 
     return (
@@ -55,7 +67,7 @@ export default function Item_AddEditModal({ master, setImage, updateFormData }) 
                             <div className='row'>
                                 <div className="col-md-12">
                                     <div className="mb-3">
-                                        <label className="form-label">category <span className="text-danger">*</span></label>
+                                        <label className="form-label">Category <span className="text-danger">*</span></label>
                                         <select name="categoryId" id='categoryId' className="form-select form-control" aria-label="Default select example" onChange={updateFormData}>
                                             <option defaultChecked value="" defaultValue>Open this select menu</option>
                                             {
@@ -83,7 +95,7 @@ export default function Item_AddEditModal({ master, setImage, updateFormData }) 
                             <div className='row'>
                                 <div className="col-md-12">
                                     <div className="mb-3">
-                                        <label className="form-label">Qunty <span className="text-danger">*</span></label>
+                                        <label className="form-label">Quantity <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
                                             <i data-feather="user" className="fea icon-sm icons"></i>
                                             <input name="qty" id="qty" type="number" className="form-control ps-5" onChange={updateFormData} />
@@ -93,19 +105,18 @@ export default function Item_AddEditModal({ master, setImage, updateFormData }) 
                             </div>
                             <div className='row'>
                                 <div className="col-md-12">
-                                    <div className="mb-3">
-                                        <div className="form-group"> <label>Multiple</label>
-                                            <select class="select2" multiple="multiple" name="tagId" id='tagId' className="form-select form-control" aria-label="Default select example" onChange={updateFormData}>
-                                                <option defaultChecked value="" defaultValue>Open this select menu</option>
-                                                {
-                                                    tags && tags.map((tag, index) => {
-                                                        return (
-                                                            <option key={index} value={tag._id}>{tag.name}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
+                                    <div className="form-group">
+                                        <label className="form-label">Tags <span className="text-danger">*</span></label>
+                                        <select className="select2" id="tagId" multiple="multiple" data-placeholder="Select a State" style={{ width: "100%" }}>
+                                            <option value="">Select tags</option>
+                                            {
+                                                tags && tags.map(tag => (
+                                                    <option key={tag._id} value={tag._id}>
+                                                        {tag.name}
+                                                    </option>
+                                                ))
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>

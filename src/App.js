@@ -15,6 +15,7 @@ import Customers from "./views/Customers";
 import Tables from "./views/Tables";
 import Users from "./views/Users";
 import Orders from "./views/Orders";
+import Multiple from "./views/Multiple";
 
 
 import "../src/resources/landrick/css/bootstrap.min.css"
@@ -23,6 +24,7 @@ import "../src/resources/landrick/css/style.css"
 import "../src/resources/landrick/css/materialdesignicons.min.css"
 import "../src/resources/landrick/css/tabler-icons.min.css"
 import "../src/resources/landrick/select2/css/select2.min.css"
+import "../src/resources/landrick/select2/css/select2-bootstrap4.min.css"
 
 import "../src/resources/landrick/js/bootstrap.bundle.min.js"
 import "../src/resources/landrick/js/simplebar.min.js"
@@ -84,6 +86,7 @@ function App() {
 							<Route exact path="/Table" element={<Tables />} />
 							<Route exact path="/User" element={<Users />} />
 							<Route exact path="/Order" element={<Orders />} />
+							<Route exact path="/Multiple" element={<Multiple />} />
 						</Routes>
 
 						<Footer />
