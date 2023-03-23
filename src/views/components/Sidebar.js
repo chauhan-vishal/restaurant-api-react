@@ -18,10 +18,10 @@ export default function Sidebar({setActiveMenu}) {
 
 				<ul className="sidebar-menu">
 					<li onClick={() => { setActiveMenu('/') }}><NavLink to="/"><i className="ti ti-home me-2"></i>Dashboard</NavLink></li>
-					<li onClick={() => { setActiveMenu('/Category') }}><NavLink to="/Category"><i className="ti ti-home me-2"></i>Category</NavLink></li>
 					<li onClick={() => { setActiveMenu('/Cuisine') }}><NavLink to="/Cuisine"><i className="ti ti-home me-2"></i>Cuisine</NavLink></li>
 					<li onClick={() => { setActiveMenu('/SubCategory') }}><NavLink to="/SubCategory"><i className="ti ti-home me-2"></i>SubCategory</NavLink></li>
 					<li onClick={() => { setActiveMenu('/Item') }}><NavLink to="/Item"><i className="ti ti-home me-2"></i>Item</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Tag') }}><NavLink to="/Tag"><i className="ti ti-home me-2"></i>Tag</NavLink></li>
 					<li onClick={() => { setActiveMenu('/Department') }}><NavLink to="/Department"><i className="ti ti-home me-2"></i>Department</NavLink></li>
 					<li onClick={() => { setActiveMenu('/Employee') }}><NavLink to="/Employee"><i className="ti ti-home me-2"></i>Employee</NavLink></li>
 					<li onClick={() => { setActiveMenu('/Customer') }}><NavLink to="/Customer"><i className="ti ti-home me-2"></i>Customer</NavLink></li>

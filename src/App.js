@@ -5,7 +5,8 @@ import Dashboard from "./views/Dashboard";
 import Sidebar from "./views/components/Sidebar";
 import Footer from "./views/components/Footer";
 import Topbar from "./views/components/Topbar";
-import Categoies from "./views/Categories";
+import Tags from "./views/Tags";
+// import Categoies from "./views/Categories";
 import Cusines from "./views/Cusines";
 import SubCategories from "./views/SubCategories";
 import Items from "./views/Items";
@@ -72,7 +73,7 @@ function App() {
 
 						<Routes>
 							<Route exact path="/" element={<Dashboard setActiveMenu={setActiveMenu} />} />
-							<Route exact path="/Category" element={<Categoies />} />
+							<Route exact path="/Tag" element={<Tags />} />
 							<Route exact path="/Cuisine" element={<Cusines />} />
 							<Route exact path="/SubCategory" element={<SubCategories />} />
 							<Route exact path="/Item" element={<Items />} />

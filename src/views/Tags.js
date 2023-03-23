@@ -4,16 +4,15 @@ import MaterialTable from 'material-table'
 
 import $ from 'jquery'
 
-import Category_AddEditModal from './components/modals/Category_AddEditModal'
-import Category_DeleteModal from './components/modals/Category_DeleteModal'
+import Tag_AddEditModal from './components/modals/Tag_AddEditModal'
+import Tag_DeleteModal from './components/modals/Tag_DeleteModal'
 
-
-export default function Categories() {
+export default function Tags() {
 	let formData = new FormData();
-	const [categories, setCategories] = useState([])
+	const [tags, setTags] = useState([])
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/category")
+		fetch("http://localhost:2503/api/tag")
 			.then(res => {
 				return res.json()
 			})
@@ -22,7 +21,7 @@ export default function Categories() {
 					item.serial = index + 1
 					return item
 				})
-				setCategories(documents)
+				setTags(documents)
 			})
 	}
 
@@ -38,25 +37,28 @@ export default function Categories() {
 		})
 	}
 
-	const setImage = (e) => {
-		const reader = new FileReader();
-		reader.readAsDataURL(e.target.files[0])
+	// const setImage = (e) => {
+	// 	const reader = new FileReader();
+	// 	reader.readAsDataURL(e.target.files[0])
 
-		reader.onload = function () {
-			formData.img = reader.result
-		};
-		reader.onerror = function (error) {
-			console.log('Error: ', error);
-		};
-	}
+	// 	reader.onload = function () {
+	// 		formData.img = reader.result
+	// 	};
+	// 	reader.onerror = function (error) {
+	// 		console.log('Error: ', error);
+	// 	};
+	// }
 
 	function showAlert(flag, operation) {
 		switch (operation) {
 			case "add":
-				(flag) ? alert("Category Added Successfully") : alert("Error Occured");
+				(flag) ? alert("Tag Added Successfully") : alert("Error Occured");
 				break;
 			case "delete":
-				(flag) ? alert("Category Deleted Successfully") : alert("Error Occured");
+				(flag) ? alert("Tag Deleted Successfully") : alert("Error Occured");
+				break;				
+			case "edit":
+				(flag) ? alert("Tag Edited Successfully") : alert("Error Occured");
 				break;
 		}
 
@@ -78,8 +80,8 @@ export default function Categories() {
 		}
 	}
 
-	const addCategory = (e) => {
-		fetch("http://localhost:2503/api/category/new", {
+	const addTag = (e) => {
+		fetch("http://localhost:2503/api/tag/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -99,9 +101,9 @@ export default function Categories() {
 			})
 	}
 
-	function deleteCategory() {
-		const id = document.querySelector("#hdnCategoryId").value
-		fetch("http://localhost:2503/api/category/delete/" + id, {
+	function deleteTag() {
+		const id = document.querySelector("#hdnTagId").value
+		fetch("http://localhost:2503/api/tag/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -117,8 +119,8 @@ export default function Categories() {
 			})
 	}
 
-	const updateCategory = (e) => {
-		fetch("http://localhost:2503/api/category/update", {
+	const updateTag = (e) => {
+		fetch("http://localhost:2503/api/tag/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -129,16 +131,16 @@ export default function Categories() {
 			.then(response => {
 				if (response.success) {
 					fetchData()
-					showAlert(true, "add")
+					showAlert(true, "edit")
 				}
 				else {
-					showAlert(false, "add")
+					showAlert(false, "edit")
 				}
 			})
 	}
 
-	const toggleStatus = (categoryId) => {
-		fetch("http://localhost:2503/api/category/update/status/" + categoryId, {
+	const toggleStatus = (tagId) => {
+		fetch("http://localhost:2503/api/tag/update/status/" + tagId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -154,39 +156,39 @@ export default function Categories() {
 
 	const setModal = (option, item) => {
 		document.querySelector("#option").innerHTML = option
-		document.querySelector("#btnSubmit").innerHTML = option + " Category"
+		document.querySelector("#btnSubmit").innerHTML = option + " tag"
 		$("#btnSubmit").off()
 		if (option == "Add") {
 			clearModalValues()
-			$("#btnSubmit").on("click", addCategory)
+			$("#btnSubmit").on("click", addTag)
 		}
 		else {
 			updateModalValues(item)
-			$("#btnSubmit").on("click", updateCategory)
+			$("#btnSubmit").on("click", updateTag)
 		}
 	}
 
 	const clearModalValues = () => {
 		document.querySelector("#name").value = ""
-		document.querySelector("#desc").value = ""
+		//document.querySelector("#desc").value = ""
 		// document.querySelector("#img").value = ""
 		document.querySelector("#status").checked = false
 	}
 
-	const updateModalValues = (category) => {
+	const updateModalValues = (tag) => {
 		formData = ({
 			...formData,
-			categoryId: category._id
+			tagId: tag._id
 		})
-		document.querySelector("#hdnCategoryID").value = category._id
-		document.querySelector("#name").value = category.name
-		document.querySelector("#desc").value = category.desc
-		document.querySelector("#status").checked = (category.status === "active") ? true : false
+		document.querySelector("#hdnTagID").value = tag._id
+		document.querySelector("#name").value = tag.name
+		// document.querySelector("#desc").value = category.desc
+		document.querySelector("#status").checked = (tag.status === "active") ? true : false
 	}
 
-	const setDeleteModalProps = (category) => {
-		document.querySelector("#delete-name").innerHTML = category.name
-		document.querySelector("#hdnCategoryId").value = category._id
+	const setDeleteModalProps = (tag) => {
+		document.querySelector("#delete-name").innerHTML = tag.name
+		document.querySelector("#hdnTagId").value = tag._id
 	}
 
 
@@ -200,12 +202,12 @@ export default function Categories() {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Category Name", field: "name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Tag Name", field: "name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
-		{
-			title: "Image",
-			render: item => <img src={item.img} style={imgStyle} />
-		},
+		// {
+		// 	title: "Image",
+		// 	render: item => <img src={item.img} style={imgStyle} />
+		// },
 		{
 			title: "Status",
 			render: item => {
@@ -217,10 +219,10 @@ export default function Categories() {
 		{
 			title: "Actions", render: (item) => {
 				return <>
-					<button className="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target={"#categoryModal"} onClick={() => { setModal("Edit", item) }}>
+					<button className="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target={"#TagModal"} onClick={() => { setModal("Edit", item) }}>
 						<i className="ti ti-edit"></i>
 					</button>
-					<button className="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target={"#deleteCategory"} onClick={() => { setDeleteModalProps(item) }}>
+					<button className="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target={"#deleteTag"} onClick={() => { setDeleteModalProps(item) }}>
 						<i className="ti ti-trash"></i>
 					</button>
 				</>
@@ -234,18 +236,18 @@ export default function Categories() {
 			<div className="layout-specing">
 				<div className="d-md-flex justify-content-between">
 					<div>
-						<h5 className="mb-0">Category</h5>
+						<h5 className="mb-0">Tag</h5>
 
 						<nav aria-label="breadcrumb" className="d-inline-block mt-2 mt-sm-0">
 							<ul className="breadcrumb bg-transparent rounded mb-0 p-0">
 								<li className="breadcrumb-item text-capitalize"><NavLink to="/">Dashboard</NavLink></li>
-								<li className="breadcrumb-item text-capitalize active" aria-current="page">Category</li>
+								<li className="breadcrumb-item text-capitalize active" aria-current="page">Tag</li>
 							</ul>
 						</nav>
 					</div>
 
 					<div className="mt-4 mt-sm-0">
-						<NavLink to="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoryModal" onClick={() => { setModal('Add') }}>Add Category</NavLink>
+						<NavLink to="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TagModal" onClick={() => { setModal('Add') }}>Add Tag</NavLink>
 					</div>
 				</div>
 
@@ -253,7 +255,7 @@ export default function Categories() {
 					<div className="col-12 mt-4">
 						<div className="table-responsive shadow rounded">
 							<MaterialTable
-								data={categories}
+								data={tags}
 								columns={columns}
 								options={{
 									pageSize: 10,
@@ -276,11 +278,11 @@ export default function Categories() {
 				</div>
 			</div>
 
-			{/* AddEdit Category Modal */}
-			<Category_AddEditModal master="Category" updateFormData={updateFormData} setImage={setImage} />
+			{/* AddEdit Tag Modal */}
+			<Tag_AddEditModal master="Tag" updateFormData={updateFormData}  />
 
-			{/* Delete Category Modal */}
-			<Category_DeleteModal master="Category" handleClick={deleteCategory} />
+			{/* Delete Tag Modal */}
+			<Tag_DeleteModal master="Tag" handleClick={deleteTag} />
 		</div>
 	)
 }
