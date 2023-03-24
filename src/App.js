@@ -14,6 +14,7 @@ import Employees from "./views/Employees";
 import Customers from "./views/Customers";
 import Tables from "./views/Tables";
 import Users from "./views/Users";
+import Roles from "./views/Roles";
 import Orders from "./views/Orders";
 import Multiple from "./views/Multiple";
 
@@ -85,6 +86,7 @@ function App() {
 							<Route exact path="/Customer" element={<Customers />} />
 							<Route exact path="/Table" element={<Tables />} />
 							<Route exact path="/User" element={<Users />} />
+							<Route exact path="/Role" element={<Roles />} />
 							<Route exact path="/Order" element={<Orders />} />
 							<Route exact path="/Multiple" element={<Multiple />} />
 						</Routes>

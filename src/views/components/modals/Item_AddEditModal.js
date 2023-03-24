@@ -82,7 +82,7 @@ export default function Item_AddEditModal({ master, setImage, updateFormData }) 
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-md-12">
                                     <div className="mb-3">
                                         <label className="form-label">Price <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
@@ -107,8 +107,7 @@ export default function Item_AddEditModal({ master, setImage, updateFormData }) 
                                 <div className="col-md-12">
                                     <div className="form-group">
                                         <label className="form-label">Tags <span className="text-danger">*</span></label>
-                                        <select className="select2" id="tagId" multiple="multiple" data-placeholder="Select a State" style={{ width: "100%" }}>
-                                            <option value="">Select tags</option>
+                                        <select className="select2" id="tagId" multiple="multiple" data-placeholder="Select a Tag" style={{ width: "100%" }}>
                                             {
                                                 tags && tags.map(tag => (
                                                     <option key={tag._id} value={tag._id}>
@@ -121,7 +120,7 @@ export default function Item_AddEditModal({ master, setImage, updateFormData }) 
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-md-12">
                                     <div className="mb-3">
                                         <label className="form-label">Profile Image <span className="text-danger">*</span></label>
                                         <div className="form-icon position-relative">
@@ -130,6 +129,8 @@ export default function Item_AddEditModal({ master, setImage, updateFormData }) 
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className='row'>
                                 <div className="col-md-6">
                                     <div className="mb-3">
                                         <span className="form-label">Status</span>

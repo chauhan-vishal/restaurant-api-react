@@ -9,10 +9,12 @@ import User_AddEditModal from './components/modals/User_AddEditModal'
 import User_DeleteModal from './components/modals/User_DeleteModal'
 
 
-
 export default function Users() {
 	let formData = new FormData();
 	const [users, setUsers] = useState([])
+	const [employees, setEmployees] = useState([])
+	const [roles, setRoles] = useState([])
+
 
 	function fetchData() {
 		fetch("http://localhost:2503/api/user")
@@ -20,14 +22,27 @@ export default function Users() {
 				return res.json()
 			})
 			.then(response => {
-				const documents = response.document.map((item, index) => {
-					item.serial = index + 1
-					return item
+				const documents = response.document.map((user, index) => {
+					user.serial = index + 1
+					return user
 				})
 				setUsers(documents)
 			})
 
-		}
+		fetch("http://localhost:2503/api/employee")
+			.then(res => res.json())
+			.then(response => {
+				setEmployees(response.document)
+				console.log(response.document)
+			})
+
+		fetch("http://localhost:2503/api/role")
+			.then(res => res.json())
+			.then(response => {
+				setRoles(response.document)
+				console.log(response.document)
+			})
+	}
 
 	useEffect(() => {
 		fetchData()
@@ -53,22 +68,7 @@ export default function Users() {
 				break;
 		}
 
-		if (flag) {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert" style={{ position: "absolute", top: "100px", minWidth: "350px", left: "50%" }}>
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
-			//}
-			//else {
-			// return (
-			// 	<div className="alert alert-success alert-dismissible fade show" role="alert">
-			// 		<strong>Not done!</strong> wrong.
-			// 		<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-			// 	</div>
-			// )
-		}
+
 	}
 
 	const addUser = (e) => {
@@ -196,13 +196,13 @@ export default function Users() {
 			title: "Employee Name", render: user => { return user.employeeId.name.first + " " + user.employeeId.name.last }, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
-			title: "Username", field: "email", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Username", field: "username", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
+		// {
+		// 	title: "Password", field: "contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+		// },
 		{
-			title: "Password", field: "contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
-		},
-		{
-			title: "Role", field: "gender", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Role", field: "roleId.name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		// {
 		// 	title: "Date", field: "date", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
@@ -280,7 +280,7 @@ export default function Users() {
 			</div>
 
 			{/* AddEdit User Modal */}
-			<User_AddEditModal master="User" updateFormData={updateFormData} />
+			<User_AddEditModal master="User" updateFormData={updateFormData} employees={employees} roles ={roles} />
 
 			{/* Delete User Modal */}
 			<User_DeleteModal master="User" handleClick={deleteUser} />

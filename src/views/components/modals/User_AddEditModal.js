@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function User_AddEditModal({ master, updateFormData, employees, roles }) {
 
@@ -23,7 +23,7 @@ export default function User_AddEditModal({ master, updateFormData, employees, r
                                                 {
                                                     employees && employees.map((employee, index) => {
                                                         return (
-                                                            <option key={index} value={employee._id}>{employee.name}</option>
+                                                            <option key={index} value={employee._id}>{employee.name.first} {employee.name.last}</option>
                                                         )
                                                     })
                                                 }

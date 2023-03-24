@@ -25,6 +25,8 @@ export default function Sidebar({setActiveMenu}) {
 					<li onClick={() => { setActiveMenu('/Department') }}><NavLink to="/Department"><i className="ti ti-home me-2"></i>Department</NavLink></li>
 					<li onClick={() => { setActiveMenu('/Employee') }}><NavLink to="/Employee"><i className="ti ti-home me-2"></i>Employee</NavLink></li>
 					<li onClick={() => { setActiveMenu('/Customer') }}><NavLink to="/Customer"><i className="ti ti-home me-2"></i>Customer</NavLink></li>
+					<li onClick={() => { setActiveMenu('/Role') }}><NavLink to="/Role"><i className="ti ti-home me-2"></i>Role</NavLink></li>
+
 					<li onClick={() => { setActiveMenu('/Table') }}><NavLink to="/Table"><i className="ti ti-home me-2"></i>Table</NavLink></li>
 					<li onClick={() => { setActiveMenu('/User') }}><NavLink to="/User"><i className="ti ti-home me-2"></i>User</NavLink></li>
 					<li onClick={() => { setActiveMenu('/Order') }}><NavLink to="/Order"><i className="ti ti-home me-2"></i>Orders</NavLink></li>
