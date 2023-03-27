@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import MaterialTable from 'material-table'
 
 
+
 import $ from 'jquery'
 
 import User_AddEditModal from './components/modals/User_AddEditModal'
@@ -17,7 +18,7 @@ export default function Users() {
 
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/user")
+		fetch(process.env.REACT_APP_API_URL+"api/user")
 			.then(res => {
 				return res.json()
 			})
@@ -29,14 +30,14 @@ export default function Users() {
 				setUsers(documents)
 			})
 
-		fetch("http://localhost:2503/api/employee")
+		fetch(process.env.REACT_APP_API_URL+"api/employee")
 			.then(res => res.json())
 			.then(response => {
 				setEmployees(response.document)
 				console.log(response.document)
 			})
 
-		fetch("http://localhost:2503/api/role")
+		fetch(process.env.REACT_APP_API_URL+"api/role")
 			.then(res => res.json())
 			.then(response => {
 				setRoles(response.document)
@@ -73,7 +74,7 @@ export default function Users() {
 
 	const addUser = (e) => {
 		console.log(formData)
-		fetch("http://localhost:2503/api/user/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/user/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -95,7 +96,7 @@ export default function Users() {
 
 	function deleteUser() {
 		const id = document.querySelector("#hdnUserId").value
-		fetch("http://localhost:2503/api/user/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/user/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -112,7 +113,7 @@ export default function Users() {
 	}
 
 	const updateUser = (e) => {
-		fetch("http://localhost:2503/api/user/update", {
+		fetch(process.env.REACT_APP_API_URL+"api/user/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -132,7 +133,7 @@ export default function Users() {
 	}
 
 	const toggleStatus = (userId) => {
-		fetch("http://localhost:2503/api/user/update/status/" + userId, {
+		fetch(process.env.REACT_APP_API_URL+"api/user/update/status/" + userId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

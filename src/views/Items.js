@@ -12,7 +12,7 @@ export default function Items() {
 	const [items, setItems] = useState([])
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/item")
+		fetch(process.env.REACT_APP_API_URL+"api/item")
 			.then(res => { return res.json() })
 			.then(response => {
 				const documents = response.document.map((item, index) => {
@@ -62,7 +62,7 @@ export default function Items() {
 	}
 
 	const addItem = (e) => {
-		fetch("http://localhost:2503/api/Item/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/Item/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -84,7 +84,7 @@ export default function Items() {
 
 	function deleteItem() {
 		const id = document.querySelector("#hdnItemId").value
-		fetch("http://localhost:2503/api/Item/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/Item/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -101,7 +101,7 @@ export default function Items() {
 	}
 
 	const updateItem = (e) => {
-		fetch("http://localhost:2503/api/Item/update/", {
+		fetch(process.env.REACT_APP_API_URL+"api/Item/update/", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -121,7 +121,7 @@ export default function Items() {
 	}
 
 	const toggleStatus = (itemId) => {
-		fetch("http://localhost:2503/api/item/update/status/" + itemId, {
+		fetch(process.env.REACT_APP_API_URL+"api/item/update/status/" + itemId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

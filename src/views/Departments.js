@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import MaterialTable from 'material-table'
 
+
 import $ from 'jquery'
 
 import Department_AddEditModal from './components/modals/Department_AddEditModal'
@@ -12,7 +13,7 @@ export default function Departments() {
 	const [departments, setDepartments] = useState([])
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/department")
+		fetch(process.env.REACT_APP_API_URL+"api/department")
 			.then(res => {
 				return res.json()
 			})
@@ -50,7 +51,7 @@ export default function Departments() {
 
 	const addDepartment = (e) => {
 		console.log(formData)
-		fetch("http://localhost:2503/api/department/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/department/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -72,7 +73,7 @@ export default function Departments() {
 
 	function deleteDepartment() {
 		const id = document.querySelector("#hdnDepartmentId").value
-		fetch("http://localhost:2503/api/department/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/department/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -89,7 +90,7 @@ export default function Departments() {
 	}
 
 	const updateDepartment = (e) => {
-		fetch("http://localhost:2503/api/department/update", {
+		fetch(process.env.REACT_APP_API_URL+"api/department/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -109,7 +110,7 @@ export default function Departments() {
 	}
 
 	const toggleStatus = (departmentId) => {
-		fetch("http://localhost:2503/api/department/update/status/" + departmentId, {
+		fetch(process.env.REACT_APP_API_URL+"api/department/update/status/" + departmentId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

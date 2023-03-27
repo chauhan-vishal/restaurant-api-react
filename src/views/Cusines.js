@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import MaterialTable from 'material-table'
 
+
 import $ from 'jquery'
 
 import Cuisine_AddEditModal from './components/modals/Cuisine_AddEditModal'
@@ -13,7 +14,7 @@ export default function Cuisnes() {
 	const [cuisines, setCuisines] = useState([])
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/cuisine")
+		fetch(process.env.REACT_APP_API_URL+"api/cuisine")
 			.then(res => {
 				return res.json()
 			})
@@ -65,7 +66,7 @@ export default function Cuisnes() {
 	}
 
 	const addCuisine = (e) => {
-		fetch("http://localhost:2503/api/cuisine/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/cuisine/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -86,7 +87,7 @@ export default function Cuisnes() {
 
 	function deleteCuisine() {
 		const id = document.querySelector("#hdnCuisineId").value
-		fetch("http://localhost:2503/api/cuisine/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/cuisine/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -103,7 +104,7 @@ export default function Cuisnes() {
 	}
 
 	const updateCuisine = (e) => {
-		fetch("http://localhost:2503/api/cuisine/update", {
+		fetch(process.env.REACT_APP_API_URL+"api/cuisine/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -124,7 +125,7 @@ export default function Cuisnes() {
 
 	const toggleStatus = (cuisineId) => {
 		console.log(cuisineId)
-		fetch("http://localhost:2503/api/cuisine/update/status/" + cuisineId, {
+		fetch(process.env.REACT_APP_API_URL+"api/cuisine/update/status/" + cuisineId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

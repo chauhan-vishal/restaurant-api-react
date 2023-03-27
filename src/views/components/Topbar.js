@@ -11,10 +11,10 @@ export default function Topbar() {
             <div className="header-bar d-flex justify-content-between">
                 <div className="d-flex align-items-center">
                     <NavLink to="#" className="logo-icon me-3" >
-                        <img src="assets/images/logo-icon.png" height="30" className="small" alt="" />
+                        <img src="" height="30" className="small" alt="" />
                         <span className="big">
-                            <img src="assets/images/logo-dark.png" height="24" className="logo-light-mode" alt="" />
-                            <img src="assets/images/logo-light.png" height="24" className="logo-dark-mode" alt="" />
+                            <img src="" height="24" className="logo-light-mode" alt="" />
+                            <img src="" height="24" className="logo-dark-mode" alt="" />
                         </span>
                     </NavLink>
                     <button id="close-sidebar" className="btn btn-icon btn-soft-light" onClick={toggleSidebar}>

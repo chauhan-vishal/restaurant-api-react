@@ -13,7 +13,7 @@ export default function Customers() {
 	const [customers, setCustomers] = useState([])
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/customer")
+		fetch(process.env.REACT_APP_API_URL+"api/customer")
 			.then(res => {
 				return res.json()
 			})
@@ -55,7 +55,7 @@ export default function Customers() {
 	}
 
 	const addCustomer = (e) => {
-		fetch("http://localhost:2503/api/customer/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/customer/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -78,7 +78,7 @@ export default function Customers() {
 
 	function deleteCustomer() {
 		const id = document.querySelector("#hdnCustomerId").value
-		fetch("http://localhost:2503/api/customer/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/customer/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -95,7 +95,7 @@ export default function Customers() {
 	}
 
 	const updateCustomer = (e) => {
-		fetch("http://localhost:2503/api/customer/update", {
+		fetch(process.env.REACT_APP_API_URL+"api/customer/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -115,7 +115,7 @@ export default function Customers() {
 	}
 
 	const toggleStatus = (customerId) => {
-		fetch("http://localhost:2503/api/customer/update/status/" + customerId, {
+		fetch(process.env.REACT_APP_API_URL+"api/customer/update/status/" + customerId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

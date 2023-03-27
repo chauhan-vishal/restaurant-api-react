@@ -11,7 +11,7 @@ export default function Tables() {
 	const [tables, setTables] = useState([])
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/table")
+		fetch(process.env.REACT_APP_API_URL+"api/table")
 			.then(res => {
 				return res.json()
 			})
@@ -51,7 +51,7 @@ export default function Tables() {
 	}
 
 	const addTable = (e) => {
-		fetch("http://localhost:2503/api/table/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/table/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function Tables() {
 
 	function deleteTable() {
 		const id = document.querySelector("#hdnTableId").value
-		fetch("http://localhost:2503/api/table/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/table/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -90,7 +90,7 @@ export default function Tables() {
 	}
 
 	const updateTable = (e) => {
-		fetch("http://localhost:2503/api/table/update", {
+		fetch(process.env.REACT_APP_API_URL+"api/table/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -111,7 +111,7 @@ export default function Tables() {
 	}
 
 	const toggleStatus = (tableId) => {
-		fetch("http://localhost:2503/api/table/update/status/" + tableId, {
+		fetch(process.env.REACT_APP_API_URL+"api/table/update/status/" + tableId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

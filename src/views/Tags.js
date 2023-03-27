@@ -12,7 +12,7 @@ export default function Tags() {
 	const [tags, setTags] = useState([])
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/tag")
+		fetch(process.env.REACT_APP_API_URL+"api/tag")
 			.then(res => {
 				return res.json()
 			})
@@ -81,7 +81,7 @@ export default function Tags() {
 	}
 
 	const addTag = (e) => {
-		fetch("http://localhost:2503/api/tag/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/tag/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -103,7 +103,7 @@ export default function Tags() {
 
 	function deleteTag() {
 		const id = document.querySelector("#hdnTagId").value
-		fetch("http://localhost:2503/api/tag/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/tag/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -120,7 +120,7 @@ export default function Tags() {
 	}
 
 	const updateTag = (e) => {
-		fetch("http://localhost:2503/api/tag/update", {
+		fetch(process.env.REACT_APP_API_URL+"api/tag/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -140,7 +140,7 @@ export default function Tags() {
 	}
 
 	const toggleStatus = (tagId) => {
-		fetch("http://localhost:2503/api/tag/update/status/" + tagId, {
+		fetch(process.env.REACT_APP_API_URL+"api/tag/update/status/" + tagId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

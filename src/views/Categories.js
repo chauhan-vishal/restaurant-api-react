@@ -14,7 +14,7 @@ export default function Categories() {
 	const [cuisines, setCuisines] = useState([])
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/category")
+		fetch(process.env.REACT_APP_API_URL+"api/category")
 			.then(res => {
 				return res.json()
 			})
@@ -26,7 +26,7 @@ export default function Categories() {
 				setCategories(documents)
 			})
 
-			fetch("http://localhost:2503/api/cuisine")
+			fetch(process.env.REACT_APP_API_URL+"api/cuisine")
 			.then(res => {
 				return res.json()
 			})
@@ -74,7 +74,7 @@ export default function Categories() {
 	}
 
 	const addCategory = (e) => {
-		fetch("http://localhost:2503/api/category/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/category/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -96,7 +96,7 @@ export default function Categories() {
 
 	function deleteCategory() {
 		const id = document.querySelector("#hdnCategoryId").value
-		fetch("http://localhost:2503/api/category/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/category/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -113,7 +113,7 @@ export default function Categories() {
 	}
 
 	const updateCategory = (e) => {
-		fetch("http://localhost:2503/api/category/update", {
+		fetch(process.env.REACT_APP_API_URL+"api/category/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -133,7 +133,7 @@ export default function Categories() {
 	}
 
 	const toggleStatus = (categoryId) => {
-		fetch("http://localhost:2503/api/category/update/status/" + categoryId, {
+		fetch(process.env.REACT_APP_API_URL+"api/category/update/status/" + categoryId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

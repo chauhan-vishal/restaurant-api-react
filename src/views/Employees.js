@@ -14,7 +14,7 @@ export default function Employees() {
 
 	function fetchData() {
 
-		fetch("http://localhost:2503/api/employee")
+		fetch(process.env.REACT_APP_API_URL+"api/employee")
 			.then(res => { return res.json() })
 			.then(response => {
 				const documents = response.document.map((item, index) => {
@@ -64,7 +64,7 @@ export default function Employees() {
 	}
 
 	const addEmployee = (e) => {
-		fetch("http://localhost:2503/api/employee/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/employee/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -86,7 +86,7 @@ export default function Employees() {
 
 	function deleteEmployee() {
 		const id = document.querySelector("#hdnEmployeeId").value
-		fetch("http://localhost:2503/api/employee/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/employee/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -103,7 +103,7 @@ export default function Employees() {
 	}
 
 	const updateEmployee = (e) => {
-		fetch("http://localhost:2503/api/employee/update/", {
+		fetch(process.env.REACT_APP_API_URL+"api/employee/update/", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -123,7 +123,7 @@ export default function Employees() {
 	}
 
 	const toggleStatus = (employeeId) => {
-		fetch("http://localhost:2503/api/employee/update/status/" + employeeId, {
+		fetch(process.env.REACT_APP_API_URL+"api/employee/update/status/" + employeeId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

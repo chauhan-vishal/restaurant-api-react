@@ -6,7 +6,7 @@ export default function Orders() {
 	const [Orders, setOrders] = useState(null)
 
 	useEffect(() => {
-		fetch("http://localhost:2503/api/order")
+		fetch(process.env.REACT_APP_API_URL+"api/order")
 			.then(res => {
 				return res.json()
 			})

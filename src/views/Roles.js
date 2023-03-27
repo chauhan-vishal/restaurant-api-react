@@ -13,7 +13,7 @@ export default function Roles() {
 	const [roles, setRoles] = useState([])
 
 	function fetchData() {
-		fetch("http://localhost:2503/api/role")
+		fetch(process.env.REACT_APP_API_URL+"api/role")
 			.then(res => {
 				return res.json()
 			})
@@ -53,7 +53,7 @@ export default function Roles() {
 	}
 
 	const addRole = (e) => {
-		fetch("http://localhost:2503/api/role/new", {
+		fetch(process.env.REACT_APP_API_URL+"api/role/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -75,7 +75,7 @@ export default function Roles() {
 
 	function deleteRole() {
 		const id = document.querySelector("#hdnRoleId").value
-		fetch("http://localhost:2503/api/role/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL+"api/role/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -92,7 +92,7 @@ export default function Roles() {
 	}
 
 	const updateRole = (e) => {
-		fetch("http://localhost:2503/api/role/update", {
+		fetch(process.env.REACT_APP_API_URL+"api/role/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -113,7 +113,7 @@ export default function Roles() {
 	}
 
 	const toggleStatus = (roleId) => {
-		fetch("http://localhost:2503/api/role/update/status/" + roleId, {
+		fetch(process.env.REACT_APP_API_URL+"api/role/update/status/" + roleId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
