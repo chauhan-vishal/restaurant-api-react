@@ -1,63 +1,298 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import MaterialTable from 'material-table'
+
+import $ from 'jquery'
+
+import Order_AddEditModal from './components/modals/Order_AddEditModal'
+import Order_DeleteModal from './components/modals/Order_DeleteModal'
 
 
 export default function Orders() {
-	const [Orders, setOrders] = useState(null)
+	let formData = new FormData();
+	const [orders, setOrders] = useState([])
+	const [Customers, setCustomers] = useState([])
+	const [Tables, setTables] = useState([])
+
+	function fetchData() {
+
+		fetch(process.env.REACT_APP_API_URL+"api/order")
+			.then(res => { return res.json() })
+			.then(response => {
+				const documents = response.document.map((item, index) => {
+					item.serial = index + 1
+					return item
+				})
+				setOrders(documents)
+			})
+		fetch(process.env.REACT_APP_API_URL+"api/customer")
+			.then(res => res.json())
+			.then(response => {
+				setCustomers(response.document)
+				console.log(response.document)
+			})
+
+		fetch(process.env.REACT_APP_API_URL+"api/table")
+			.then(res => res.json())
+			.then(response => {
+				setTables(response.document)
+				console.log(response.document)
+			})
+	}
 
 	useEffect(() => {
-		fetch(process.env.REACT_APP_API_URL+"api/order")
-			.then(res => {
-				return res.json()
-			})
-			.then(data => {
-				setOrders(data.document)
-			})
+		fetchData()
 	}, [])
+
+	const updateFormData = (e) => {
+		const { name, value, type, checked } = e.target
+		formData = ({
+			...formData,
+			[name]: (type === "checkbox") ? (checked) ? "active" : "inactive" : value
+		})
+	}
+
+	// const setImage = (e) => {
+	// 	const reader = new FileReader();
+	// 	reader.readAsDataURL(e.target.files[0])
+
+	// 	reader.onload = function () {
+	// 		formData.img = reader.result
+	// 	};
+	// 	reader.onerror = function (error) {
+	// 		console.log('Error: ', error);
+	// 	};
+	// }
+
+	function showAlert(flag, operation) {
+		switch (operation) {
+			case "add":
+				(flag) ? alert("Order Added Successfully") : alert("Error Occured");
+				break;
+			case "delete":
+				(flag) ? alert("Order Deleted Successfully") : alert("Error Occured");
+				break;
+			case "edit":
+				(flag) ? alert("Order Updated Successfully") : alert("Error Occured");
+				break;
+		}
+	}
+
+	const addOrder = (e) => {
+		fetch(process.env.REACT_APP_API_URL+"api/order/new", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData)
+		})
+			.then(response => response = response.json())
+			.then(response => {
+				if (response.success) {
+					fetchData()
+					showAlert(true, "add")
+				}
+				else {
+					alert(response.msg)
+					showAlert(false, "add")
+				}
+			})
+	}
+
+	function deleteOrder() {
+		const id = document.querySelector("#hdnOrderId").value
+		fetch(process.env.REACT_APP_API_URL+"api/order/delete/" + id, {
+			method: "DELETE",
+			header: "accept: application/json",
+		})
+			.then(response => response = response.json())
+			.then(response => {
+				if (response.success) {
+					fetchData()
+					showAlert(true, "delete")
+				}
+				else {
+					showAlert(false, "delete")
+				}
+			})
+	}
+
+	const updateOrder = (e) => {
+		fetch(process.env.REACT_APP_API_URL+"api/order/update/", {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData)
+		})
+			.then(response => response = response.json())
+			.then(response => {
+				if (response.success) {
+					fetchData()
+					showAlert(true, "edit")
+				}
+				else {
+					showAlert(false, "edit")
+				}
+			})
+	}
+
+	const toggleStatus = (orderId) => {
+		fetch(process.env.REACT_APP_API_URL+"api/order/update/status/" + orderId, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then(response => response.json())
+			.then(response => {
+				if (response.success) {
+					fetchData()
+				}
+			})
+	}
+
+	const setModal = (option, item) => {
+		document.querySelector("#option").innerHTML = option
+		document.querySelector("#btnSubmit").innerHTML = option + " order"
+		$("#btnSubmit").off()
+		if (option == "Add") {
+			clearModalValues()
+			$("#btnSubmit").on("click", addOrder)
+		}
+		else {
+			updateModalValues(item)
+			$("#btnSubmit").on("click", updateOrder)
+		}
+	}
+
+	const clearModalValues = () => {
+		document.querySelector("#name").value = ""
+		document.querySelector("#contact").value = ""
+		document.querySelector("#tableId").value = ""
+		document.querySelector("#date").value = ""
+		document.querySelector("#item").value = ""
+		document.querySelector("#qty").value = ""
+		document.querySelector("#amount").value = ""
+		document.querySelector("#desc").value = ""
+	}
+
+	const updateModalValues = (order) => {
+		formData = ({
+			...formData,
+			employeeId: order._id
+		})
+
+
+		document.querySelector("#hdnOrderID").value = order._id
+		document.querySelector("#name").value = order.customerId.name
+		document.querySelector("#contact").value = order.customerId.contact
+		document.querySelector("#tableId").value = order.tableId._id
+		document.querySelector("#date").value = order.date.split("T")[0]
+		document.querySelector("#item").value = order.item
+		document.querySelector("#qty").value = order.qty
+		document.querySelector("#amount").value = order.amount
+		document.querySelector("#desc").value = order.qty
+	}
+
+	 const setDeleteModalProps = (order) => {
+	// 	document.querySelector("#delete-name").innerHTML = order.name.first + " " + employee.name.last
+	 	document.querySelector("#hdnOrderId").value = order._id
+	 }
+
+
+	// const imgStyle = {
+	// 	width: "120px",
+	// 	borderRadius: "10px"
+	// }
+
+	const columns = [
+		{
+			title: "Sr. No", field: "serial"
+		},
+		{
+			title: "Name", field:"name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+		},
+		{
+			title: "Contact", field: "contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+
+		},
+		{
+			title: "date", field: "date", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+
+		},
+		{
+			title: "amount", field: "amount", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+
+		},
+		// {
+		// 	title: "Actions", render: (item) => {
+		// 		return <>
+		// 			<button className="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target={"#editOrder"} onClick={() => { setModal("Edit", item) }}>
+		// 				<i className="ti ti-edit"></i>
+		// 			</button>
+		// 			<button className="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target={"#deleteOrder"} onClick={() => { setDeleteModalProps(item) }}>
+		// 				<i className="ti ti-trash"></i>
+		// 			</button>
+		// 		</>
+		// 	}
+		// }
+	];
 
 
 	return (
 		<div className="container-fluid">
+
 			<div className="layout-specing">
 				<div className="d-md-flex justify-content-between">
 					<div>
-						<h5 className="mb-0">Orders</h5>
+						<h5 className="mb-0">Order</h5>
 
 						<nav aria-label="breadcrumb" className="d-inline-block mt-2 mt-sm-0">
 							<ul className="breadcrumb bg-transparent rounded mb-0 p-0">
-								<li className="breadcrumb-item text-capitalize"><NavLink to="index.html">Landrick</NavLink></li>
-								<li className="breadcrumb-item text-capitalize active" aria-current="page">Orders</li>
+								<li className="breadcrumb-item text-capitalize"><NavLink to="/">Dashboard</NavLink></li>
+								<li className="breadcrumb-item text-capitalize active" aria-current="page">Order</li>
 							</ul>
 						</nav>
 					</div>
 
 					<div className="mt-4 mt-sm-0">
-						<NavLink to="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-product">Orders</NavLink>
+						<NavLink to="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editOrder" onClick={() => { setModal('Add') }}>Add Order</NavLink>
 					</div>
 				</div>
 
 				<div className="row">
 					<div className="col-12 mt-4">
 						<div className="table-responsive shadow rounded">
-							<table className="table table-center bg-white mb-0" id="table">
-								<thead>
-									<tr>
-										<th className="border-bottom p-3">Sr. No.</th>
-										<th className="text-center border-bottom p-3" style={{ minWidth: "150px" }}>Image</th>
-										<th className="border-bottom p-3" style={{ minWidth: "200px" }}>Order Name</th>
-										<th className="text-center border-bottom p-3">Status</th>
-										<th className="text-end border-bottom p-3" style={{ minWidth: "200px" }}></th>
-									</tr>
-								</thead>
-								<tbody>
-									
-								</tbody>
-							</table>
+							<MaterialTable
+								data={orders}
+								columns={columns}
+								options={{
+									pageSize: 10,
+									search: false,
+									toolbar: false,
+									tableLayout: "fixed",
+									headerStyle: {
+										textAlign: "Center",
+										fontWeight: "700",
+										fontFamily: "Nunito",
+										fontSize: "16px"
+									},
+									cellStyle: {
+										textAlign: "Center"
+									}
+								}}
+							/>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			{/* AddEdit Order Modal */}
+			<Order_AddEditModal master="Order" updateFormData={updateFormData} />
+
+			{/* Delete Order Modal */}
+			<Order_DeleteModal master="Order" handleClick={deleteOrder} />
 		</div>
 	)
 }
-
