@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 
-export default function Order_AddEditModal({ master, updateFormData }) {
+export default function Order_AddEditModal({ master, updateFormData, customers, tables, items }) {
+
+    console.log(customers)
 
     return (
         <div className="modal fade" id={"edit" + master} tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">
@@ -17,25 +19,38 @@ export default function Order_AddEditModal({ master, updateFormData }) {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
-                                            <label className="form-label">Name <span className="text-danger">*</span></label>
-                                            <div className="form-icon position-relative">
-                                                <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="name" id="name" type="text" className="form-control ps-5" placeholder="Customer Name :" onChange={updateFormData} />
-                                            </div>
+                                            <label className="form-label">Customer name <span className="text-danger">*</span></label>
+                                            <select name="customerId" id='customerId' className="form-select form-control" aria-label="Default select example" onChange={updateFormData}>
+                                                <option defaultChecked value="" defaultValue>Open this select menu</option>
+                                                {
+                                                    customers && customers.map((customer, index) => {
+                                                        return (
+                                                            <option key={index} value={customer._id}>{customer.name.first} {customer.name.last} ({customer.contact})</option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
-                                            <label className="form-label">Contact <span className="text-danger">*</span></label>
-                                            <div className="form-icon position-relative">
-                                                <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="contact" id="contact" type="text" className="form-control ps-5" placeholder="Customer Name :" onChange={updateFormData} />
-                                            </div>
+                                            <label className="form-label">Table No <span className="text-danger">*</span></label>
+                                            <select name="tableId" id='tableId' className="form-select form-control" aria-label="Default select example" onChange={updateFormData}>
+                                                <option defaultChecked value="" defaultValue>Open this select menu</option>
+                                                {
+                                                    tables && tables.map((table, index) => {
+                                                        return (
+                                                            <option key={index} value={table._id}>{table.tableNo}</option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
                                         </div>
                                     </div>
-                                </div>                                 
+                                </div>
+
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
@@ -50,36 +65,54 @@ export default function Order_AddEditModal({ master, updateFormData }) {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
-                                            <label className="form-label">item <span className="text-danger">*</span></label>
-                                            <div className="form-icon position-relative">
-                                                <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="item" id="item" type="text" className="form-control ps-5" placeholder="Customer Name :" onChange={updateFormData} />
-                                            </div>
+                                            <label className="form-label">Item <span className="text-danger">*</span></label>
+                                            <select name="itemId" id='itemId' className="form-select form-control" aria-label="Default select example" onChange={updateFormData}>
+                                                <option defaultChecked value="" defaultValue>Open this select menu</option>
+                                                {
+                                                    items && items.map((item, index) => {
+                                                        return (
+                                                            <option key={index} value={item._id}>{item.name}</option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
                                         </div>
                                     </div>
-                                </div>     
+                                </div>
+
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
                                             <label className="form-label">Description <span className="text-danger">*</span></label>
                                             <div className="form-icon position-relative">
                                                 <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="desc" id="desc" type="text" className="form-control ps-5" placeholder="Customer Name :" onChange={updateFormData} />
+                                                <textarea name="desc" id="desc" rows="4" className="form-control ps-5" placeholder="Description :" onChange={updateFormData} ></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
                                             <label className="form-label">Amount <span className="text-danger">*</span></label>
                                             <div className="form-icon position-relative">
                                                 <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="amount" id="amount" type="text" className="form-control ps-5" placeholder="Customer Name :" onChange={updateFormData} />
+                                                <input name="amount" id="amount" type="text" className="form-control ps-5" placeholder="Amount :" onChange={updateFormData} />
                                             </div>
                                         </div>
                                     </div>
-                                </div>         
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="mb-3">
+                                            <label className="form-label">qty <span className="text-danger">*</span></label>
+                                            <div className="form-icon position-relative">
+                                                <i data-feather="user" className="fea icon-sm icons"></i>
+                                                <input name="qty" id="qty" type="text" className="form-control ps-5" placeholder="QTy :" onChange={updateFormData} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

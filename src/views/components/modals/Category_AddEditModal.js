@@ -31,7 +31,7 @@ export default function Category_AddEditModal({ master, updateFormData, setImage
                                             <label className="form-label">Description <span className="text-danger">*</span></label>
                                             <div className="form-icon position-relative">
                                                 <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="desc" id="desc" type="text" className="form-control ps-5" placeholder="Description :" onChange={updateFormData} />
+                                                <textarea name="desc" id="desc" rows="4" className="form-control ps-5" placeholder="Description :" onChange={updateFormData} ></textarea>
                                             </div>
                                         </div>
                                     </div>

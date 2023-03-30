@@ -27,12 +27,12 @@ import "../src/resources/landrick/css/tabler-icons.min.css"
 import "../src/resources/landrick/select2/css/select2.min.css"
 import "../src/resources/landrick/select2/css/select2-bootstrap4.min.css"
 
-// import "../src/resources/landrick/js/bootstrap.bundle.min.js"
-// import "../src/resources/landrick/js/simplebar.min.js"
-// import "../src/resources/landrick/js/feather.min.js"
-// import "../src/resources/landrick/js/plugins.init.js"
-// import "../src/resources/landrick/select2/js/select2.full"
-// import "../src/resources/landrick/js/theme-app.js"
+import "../src/resources/landrick/js/bootstrap.bundle.min.js"
+import "../src/resources/landrick/js/simplebar.min.js"
+import "../src/resources/landrick/js/feather.min.js"
+import "../src/resources/landrick/js/plugins.init.js"
+import "../src/resources/landrick/select2/js/select2.full"
+import "../src/resources/landrick/js/theme-app.js"
 
 function App() {
 	const [activeMenu, setActiveMenu] = useState(window.location.pathname.substring(window.location.pathname.lastIndexOf('/')))
