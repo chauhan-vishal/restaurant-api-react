@@ -8,25 +8,42 @@ import Category_AddEditModal from './components/modals/Category_AddEditModal'
 import Category_DeleteModal from './components/modals/Category_DeleteModal'
 
 
-export default function Categories() {
+export default function Categories({ token }) {
 	let formData = new FormData();
 	const [categories, setCategories] = useState([])
 	const [cuisines, setCuisines] = useState([])
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/category")
+		fetch(process.env.REACT_APP_API_URL + "api/category", {
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => {
 				return res.json()
 			})
 			.then(response => {
-				const documents = response.document.map((item, index) => {
-					item.serial = index + 1
-					return item
-				})
-				setCategories(documents)
+				if (response.success) {
+					const documents = response.document.map((item, index) => {
+						item.serial = index + 1
+						return item
+					})
+					setCategories(documents)
+				}
+				else {
+					alert(response.msg)
+				}
 			})
 
-			fetch(process.env.REACT_APP_API_URL+"api/cuisine")
+		fetch(process.env.REACT_APP_API_URL + "api/cuisine", {
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => {
 				return res.json()
 			})
@@ -66,7 +83,7 @@ export default function Categories() {
 				break;
 			case "delete":
 				(flag) ? alert("Category Deleted Successfully") : alert("Error Occured");
-				break;				
+				break;
 			case "edit":
 				(flag) ? alert("Category Edited Successfully") : alert("Error Occured");
 				break;
@@ -74,7 +91,7 @@ export default function Categories() {
 	}
 
 	const addCategory = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/category/new", {
+		fetch(process.env.REACT_APP_API_URL + "api/category/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -96,7 +113,7 @@ export default function Categories() {
 
 	function deleteCategory() {
 		const id = document.querySelector("#hdnCategoryId").value
-		fetch(process.env.REACT_APP_API_URL+"api/category/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL + "api/category/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -113,7 +130,7 @@ export default function Categories() {
 	}
 
 	const updateCategory = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/category/update", {
+		fetch(process.env.REACT_APP_API_URL + "api/category/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -133,7 +150,7 @@ export default function Categories() {
 	}
 
 	const toggleStatus = (categoryId) => {
-		fetch(process.env.REACT_APP_API_URL+"api/category/update/status/" + categoryId, {
+		fetch(process.env.REACT_APP_API_URL + "api/category/update/status/" + categoryId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -201,7 +218,7 @@ export default function Categories() {
 			title: "Category Name", field: "name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
-			title:"Category Desc", field:"desc", headerStyle: {textAlign:"Left"}, cellStyle :{textAlign:"Left"}
+			title: "Category Desc", field: "desc", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Image",
@@ -281,7 +298,7 @@ export default function Categories() {
 			</div>
 
 			{/* AddEdit Category Modal */}
-			<Category_AddEditModal master="Category" updateFormData={updateFormData} setImage={setImage} cuisines={cuisines}  />
+			<Category_AddEditModal master="Category" updateFormData={updateFormData} setImage={setImage} cuisines={cuisines} />
 
 			{/* Delete Category Modal */}
 			<Category_DeleteModal master="Category" handleClick={deleteCategory} />

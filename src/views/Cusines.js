@@ -9,12 +9,18 @@ import Cuisine_AddEditModal from './components/modals/Cuisine_AddEditModal'
 import Cuisine_DeleteModal from './components/modals/Cuisine_DeleteModal'
 
 
-export default function Cuisnes() {
+export default function Cuisnes({ token }) {
 	let formData = new FormData();
 	const [cuisines, setCuisines] = useState([])
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/cuisine")
+		fetch(process.env.REACT_APP_API_URL + "api/cuisine", {
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => {
 				return res.json()
 			})
@@ -66,30 +72,35 @@ export default function Cuisnes() {
 	}
 
 	const addCuisine = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/cuisine/new", {
+		fetch(process.env.REACT_APP_API_URL + "api/cuisine/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 			body: JSON.stringify(formData)
 		})
 			.then(response => response = response.json())
 			.then(response => {
 				if (response.success) {
-					fetchData()
 					showAlert(true, "add")
 				}
 				else {
+					alert(response.msg)
 					showAlert(false, "add")
 				}
+				fetchData()
 			})
 	}
 
 	function deleteCuisine() {
 		const id = document.querySelector("#hdnCuisineId").value
-		fetch(process.env.REACT_APP_API_URL+"api/cuisine/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL + "api/cuisine/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			header: {
+				"Content-Type": "application/json",
+				"x-access-token": token
+			}
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -104,10 +115,11 @@ export default function Cuisnes() {
 	}
 
 	const updateCuisine = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/cuisine/update", {
+		fetch(process.env.REACT_APP_API_URL + "api/cuisine/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 			body: JSON.stringify(formData)
 		})
@@ -124,11 +136,11 @@ export default function Cuisnes() {
 	}
 
 	const toggleStatus = (cuisineId) => {
-		console.log(cuisineId)
-		fetch(process.env.REACT_APP_API_URL+"api/cuisine/update/status/" + cuisineId, {
+		fetch(process.env.REACT_APP_API_URL + "api/cuisine/update/status/" + cuisineId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			}
 		})
 			.then(response => response.json())
