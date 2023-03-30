@@ -14,22 +14,12 @@ import "../src/resources/landrick/css/tabler-icons.min.css"
 import "../src/resources/landrick/select2/css/select2.min.css"
 import "../src/resources/landrick/select2/css/select2-bootstrap4.min.css"
 
-<<<<<<< HEAD
-import "../src/resources/landrick/js/bootstrap.bundle.min.js"
-import "../src/resources/landrick/js/simplebar.min.js"
-import "../src/resources/landrick/js/feather.min.js"
-import "../src/resources/landrick/js/plugins.init.js"
-import "../src/resources/landrick/select2/js/select2.full"
-import "../src/resources/landrick/js/theme-app.js"
-=======
-
 // import "../src/resources/landrick/js/bootstrap.bundle.min.js"
 // import "../src/resources/landrick/js/simplebar.min.js"
 // import "../src/resources/landrick/js/feather.min.js"
 // import "../src/resources/landrick/js/plugins.init.js"
 // import "../src/resources/landrick/select2/js/select2.full"
 // import "../src/resources/landrick/js/theme-app.js"
->>>>>>> 3a04bde26c15e7f7ca9071cdb17a0e20b88d3f7b
 
 function App() {
 	const [isLogIn, setIsLogIn] = useState(false)
