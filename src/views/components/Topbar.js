@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-export default function Topbar() {
-    function toggleSidebar() {  
+export default function Topbar({ toggleLogin }) {
+    function toggleSidebar() {
         document.getElementsByClassName("page-wrapper")[0].classList.toggle("toggled");
     }
 
@@ -55,7 +55,9 @@ export default function Topbar() {
                                 <NavLink className="dropdown-item text-dark" to="email.html"><span className="mb-0 d-inline-block me-1"><i className="ti ti-mail"></i></span> Email</NavLink>
                                 <div className="dropdown-divider border-top"></div>
                                 <NavLink className="dropdown-item text-dark" to="lock-screen.html"><span className="mb-0 d-inline-block me-1"><i className="ti ti-lock"></i></span> Lockscreen</NavLink>
-                                <NavLink className="dropdown-item text-dark" to="login.html"><span className="mb-0 d-inline-block me-1"><i className="ti ti-logout"></i></span> Logout</NavLink>
+                                <button className="dropdown-item text-dark" onClick={toggleLogin}>
+                                    <span className="mb-0 d-inline-block me-1"><i className="ti ti-logout"></i></span> Logout
+                                </button>
                             </div>
                         </div>
                     </li>
