@@ -243,7 +243,7 @@ export default function Employees({ token }) {
 			title: "Gender",
 			render: emp => {
 				return (emp.gender == "M")
-					? <img src="./resources/icons/man.svg" alt="male" className="img-fluid avatar avatar-ex-sm rounded-circle" style={{ transform: "scale(2)" }} />
+					? <img src="./resources/icons/male.svg" alt="male" className="img-fluid avatar avatar-ex-sm rounded-circle" style={{ transform: "scale(2)" }} />
 					: <img src="./resources/icons/female.svg" alt="female" className="img-fluid avatar avatar-ex-sm rounded-circle" style={{ transform: "scale(2)" }} />;
 			}
 		},

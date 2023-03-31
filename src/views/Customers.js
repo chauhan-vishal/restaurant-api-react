@@ -213,7 +213,7 @@ export default function Customers({token}) {
 			title: "Gender",
 			render: cust => {
 				return (cust.gender == "M")
-					? <img src="./resources/icons/man.svg" alt="male" className="img-fluid avatar avatar-ex-sm rounded-circle"  style={{transform: "scale(2)"}}/>
+					? <img src="./resources/icons/male.svg" alt="male" className="img-fluid avatar avatar-ex-sm rounded-circle"  style={{transform: "scale(2)"}}/>
 					: <img src="./resources/icons/female.svg" alt="female" className="img-fluid avatar avatar-ex-sm rounded-circle" style={{transform: "scale(2)"}} />;
 			}
 		},
