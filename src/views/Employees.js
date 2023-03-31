@@ -8,13 +8,19 @@ import Employee_AddEditModal from './components/modals/Employee_AddEditModal'
 // import Category_DeleteModal from './components/modals/Category_DeleteModal'
 import Tag_DeleteModal from './components/modals/Tag_DeleteModal'
 
-export default function Employees() {
+export default function Employees({ token }) {
 	let formData = new FormData();
 	const [employees, setEmployees] = useState([])
 
 	function fetchData() {
 
-		fetch(process.env.REACT_APP_API_URL+"api/employee")
+		fetch(process.env.REACT_APP_API_URL + "api/employee", {
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => { return res.json() })
 			.then(response => {
 				const documents = response.document.map((item, index) => {
@@ -64,10 +70,11 @@ export default function Employees() {
 	}
 
 	const addEmployee = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/employee/new", {
+		fetch(process.env.REACT_APP_API_URL + "api/employee/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 			body: JSON.stringify(formData)
 		})
@@ -86,9 +93,12 @@ export default function Employees() {
 
 	function deleteEmployee() {
 		const id = document.querySelector("#hdnEmployeeId").value
-		fetch(process.env.REACT_APP_API_URL+"api/employee/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL + "api/employee/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": token
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -103,10 +113,12 @@ export default function Employees() {
 	}
 
 	const updateEmployee = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/employee/update/", {
+		fetch(process.env.REACT_APP_API_URL + "api/employee/update/", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -123,10 +135,12 @@ export default function Employees() {
 	}
 
 	const toggleStatus = (employeeId) => {
-		fetch(process.env.REACT_APP_API_URL+"api/employee/update/status/" + employeeId, {
+		fetch(process.env.REACT_APP_API_URL + "api/employee/update/status/" + employeeId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 		})
 			.then(response => response.json())
@@ -230,11 +244,11 @@ export default function Employees() {
 			title: "Gender",
 			render: emp => {
 				return (emp.gender == "M")
-					? <img src="./resources/icons/man.svg" alt="male" className="img-fluid avatar avatar-ex-sm rounded-circle"  style={{transform: "scale(2)"}}/>
-					: <img src="./resources/icons/female.svg" alt="female" className="img-fluid avatar avatar-ex-sm rounded-circle" style={{transform: "scale(2)"}} />;
+					? <img src="./resources/icons/man.svg" alt="male" className="img-fluid avatar avatar-ex-sm rounded-circle" style={{ transform: "scale(2)" }} />
+					: <img src="./resources/icons/female.svg" alt="female" className="img-fluid avatar avatar-ex-sm rounded-circle" style={{ transform: "scale(2)" }} />;
 			}
 		},
-		
+
 		{
 			title: "Status",
 			render: emp => {
@@ -307,7 +321,7 @@ export default function Employees() {
 			</div>
 
 			{/* AddEdit Employee Modal */}
-			<Employee_AddEditModal master="Employee" setImage={setImage} updateFormData={updateFormData} />
+			<Employee_AddEditModal master="Employee" setImage={setImage} updateFormData={updateFormData} token={token} />
 
 			{/* Delete Employee Modal */}
 			<Tag_DeleteModal master="Employee" handleClick={deleteEmployee} />

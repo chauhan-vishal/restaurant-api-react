@@ -8,7 +8,7 @@ import Order_AddEditModal from './components/modals/Order_AddEditModal'
 import Order_DeleteModal from './components/modals/Order_DeleteModal'
 
 
-export default function Orders() {
+export default function Orders({token}) {
 	let formData = new FormData();
 	const [orders, setOrders] = useState([])
 	const [customers, setCustomers] = useState([])
@@ -18,7 +18,13 @@ export default function Orders() {
 
 	function fetchData() {
 
-		fetch(process.env.REACT_APP_API_URL + "api/order")
+		fetch(process.env.REACT_APP_API_URL + "api/order" ,{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => { return res.json() })
 			.then(response => {
 				const documents = response.document.map((item, index) => {
@@ -27,18 +33,36 @@ export default function Orders() {
 				})
 				setOrders(documents)
 			})
-		fetch(process.env.REACT_APP_API_URL + "api/customer")
+		fetch(process.env.REACT_APP_API_URL + "api/customer",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => res.json())
 			.then(response => {
 				setCustomers(response.document)
 			})
 
-		fetch(process.env.REACT_APP_API_URL + "api/table")
+		fetch(process.env.REACT_APP_API_URL + "api/table",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => res.json())
 			.then(response => {
 				setTables(response.document)
 			})
-		fetch(process.env.REACT_APP_API_URL + "api/item")
+		fetch(process.env.REACT_APP_API_URL + "api/item",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => res.json())
 			.then(response => {
 				setItems(response.document)
@@ -88,6 +112,8 @@ export default function Orders() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -108,7 +134,11 @@ export default function Orders() {
 		const id = document.querySelector("#hdnOrderId").value
 		fetch(process.env.REACT_APP_API_URL + "api/order/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": token
+
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -127,6 +157,8 @@ export default function Orders() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -147,6 +179,7 @@ export default function Orders() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 		})
 			.then(response => response.json())

@@ -10,7 +10,7 @@ import User_AddEditModal from './components/modals/User_AddEditModal'
 import User_DeleteModal from './components/modals/User_DeleteModal'
 
 
-export default function Users() {
+export default function Users({token}) {
 	let formData = new FormData();
 	const [users, setUsers] = useState([])
 	const [employees, setEmployees] = useState([])
@@ -18,7 +18,13 @@ export default function Users() {
 
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/user")
+		fetch(process.env.REACT_APP_API_URL+"api/user",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => {
 				return res.json()
 			})
@@ -30,18 +36,28 @@ export default function Users() {
 				setUsers(documents)
 			})
 
-		fetch(process.env.REACT_APP_API_URL+"api/employee")
+		fetch(process.env.REACT_APP_API_URL+"api/employee",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => res.json())
 			.then(response => {
 				setEmployees(response.document)
-				console.log(response.document)
 			})
 
-		fetch(process.env.REACT_APP_API_URL+"api/role")
+		fetch(process.env.REACT_APP_API_URL+"api/role",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => res.json())
 			.then(response => {
 				setRoles(response.document)
-				console.log(response.document)
 			})
 	}
 
@@ -78,6 +94,8 @@ export default function Users() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -98,7 +116,11 @@ export default function Users() {
 		const id = document.querySelector("#hdnUserId").value
 		fetch(process.env.REACT_APP_API_URL+"api/user/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": token
+
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -117,6 +139,8 @@ export default function Users() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -137,6 +161,8 @@ export default function Users() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 		})
 			.then(response => response.json())

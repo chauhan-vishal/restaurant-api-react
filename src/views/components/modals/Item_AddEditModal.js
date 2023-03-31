@@ -2,18 +2,33 @@ import React, { useEffect, useState } from 'react'
 
 import $ from "jquery";
 
-export default function Item_AddEditModal({ master, setImage, updateFormData }) {
+export default function Item_AddEditModal({ master, setImage, updateFormData, token }) {
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
 
     useEffect(() => {
-        fetch(process.env.REACT_APP_API_URL + "api/category/")
+        fetch(process.env.REACT_APP_API_URL + "api/category/",
+            {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json",
+                    "x-access-token": token
+                }
+            }
+        )
             .then(res => res.json())
             .then(res => {
                 setCategories(res.document)
             })
 
-        fetch(process.env.REACT_APP_API_URL + "api/tag/")
+        fetch(process.env.REACT_APP_API_URL + "api/tag/",
+            {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json",
+                    "x-access-token": token
+                }
+            })
             .then(res => res.json())
             .then(res => {
                 setTags(res.document)

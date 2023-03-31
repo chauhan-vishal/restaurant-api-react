@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-export default function Employee_AddEditModal({ master, setImage, updateFormData }) {
+export default function Employee_AddEditModal({ master, setImage, updateFormData,token }) {
     const [departments, setDepartments] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:2503/api/department/")
+        fetch("http://localhost:2503/api/department/", {
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
             .then(res => res.json())
             .then(res => {
                 setDepartments(res.document)

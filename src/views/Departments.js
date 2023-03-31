@@ -8,12 +8,18 @@ import $ from 'jquery'
 import Department_AddEditModal from './components/modals/Department_AddEditModal'
 import Departments_DeleteModal from './components/modals/Department_DeleteModal'
 
-export default function Departments() {
+export default function Departments({token}) {
 	let formData = new FormData();
 	const [departments, setDepartments] = useState([])
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/department")
+		fetch(process.env.REACT_APP_API_URL+"api/department",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+				}
+			})
 			.then(res => {
 				return res.json()
 			})
@@ -55,6 +61,8 @@ export default function Departments() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+				
 			},
 			body: JSON.stringify(formData)
 		})
@@ -75,7 +83,11 @@ export default function Departments() {
 		const id = document.querySelector("#hdnDepartmentId").value
 		fetch(process.env.REACT_APP_API_URL+"api/department/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": token
+				
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -94,6 +106,8 @@ export default function Departments() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -114,6 +128,8 @@ export default function Departments() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 		})
 			.then(response => response.json())

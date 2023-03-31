@@ -8,12 +8,19 @@ import Role_AddEditModal from './components/modals/Role_AddEditModal'
 import Role_DeleteModal from "./components/modals/Role_DeleteModal"
 
 
-export default function Roles() {
+export default function Roles({token}) {
 	let formData = new FormData();
 	const [roles, setRoles] = useState([])
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/role")
+		fetch(process.env.REACT_APP_API_URL+"api/role"
+		,{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => {
 				return res.json()
 			})
@@ -57,6 +64,8 @@ export default function Roles() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -77,7 +86,11 @@ export default function Roles() {
 		const id = document.querySelector("#hdnRoleId").value
 		fetch(process.env.REACT_APP_API_URL+"api/role/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": token
+
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -96,6 +109,8 @@ export default function Roles() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -117,6 +132,10 @@ export default function Roles() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
+				
+
 			},
 		})
 			.then(response => response.json())

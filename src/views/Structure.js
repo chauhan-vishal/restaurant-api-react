@@ -16,9 +16,6 @@ import Tables from "./Tables";
 import Users from "./Users";
 import Roles from "./Roles";
 import Orders from "./Orders";
-import Multiple from "./Multiple";
-
-
 
 export default function Structure({ toggleLogin, token }) {
     const [activeMenu, setActiveMenu] = useState(window.location.pathname.substring(window.location.pathname.lastIndexOf('/')))
@@ -64,16 +61,15 @@ export default function Structure({ toggleLogin, token }) {
                         <Route exact path="/" element={<Dashboard setActiveMenu={setActiveMenu} />} />
                         <Route exact path="/Cuisine" element={<Cusines token={token} />} />
                         <Route exact path="/Category" element={<Categories token={token} />} />
-                        <Route exact path="/Item" element={<Items />} />
-                        <Route exact path="/Tag" element={<Tags />} />
-                        <Route exact path="/Department" element={<Departments />} />
-                        <Route exact path="/Employee" element={<Employees />} />
-                        <Route exact path="/Customer" element={<Customers />} />
-                        <Route exact path="/Table" element={<Tables />} />
-                        <Route exact path="/User" element={<Users />} />
-                        <Route exact path="/Role" element={<Roles />} />
-                        <Route exact path="/Order" element={<Orders />} />
-                        <Route exact path="/Multiple" element={<Multiple />} />
+                        <Route exact path="/Item" element={<Items token={token} />} />
+                        <Route exact path="/Tag" element={<Tags token={token} />} />
+                        <Route exact path="/Department" element={<Departments token={token} />} />
+                        <Route exact path="/Employee" element={<Employees token={token}/>}  />
+                        <Route exact path="/Customer" element={<Customers token={token}/>}  />
+                        <Route exact path="/Table" element={<Tables token={token}/>}  />
+                        <Route exact path="/User" element={<Users token={token}/>}  />
+                        <Route exact path="/Role" element={<Roles token={token}/>}  />
+                        <Route exact path="/Order" element={<Orders token={token} />} />
                     </Routes>
 
                     <Footer />

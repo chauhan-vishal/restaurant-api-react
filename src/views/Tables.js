@@ -6,12 +6,18 @@ import $ from 'jquery'
 import Table_AddEditModal from './components/modals/Table_AddEditModal'
 import Tables_DeleteModal from './components/modals/Table_DeleteEditModal'
 
-export default function Tables() {
+export default function Tables({token}) {
 	let formData = new FormData();
 	const [tables, setTables] = useState([])
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/table")
+		fetch(process.env.REACT_APP_API_URL+"api/table",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => {
 				return res.json()
 			})
@@ -55,6 +61,8 @@ export default function Tables() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -75,7 +83,11 @@ export default function Tables() {
 		const id = document.querySelector("#hdnTableId").value
 		fetch(process.env.REACT_APP_API_URL+"api/table/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": token
+
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -94,6 +106,8 @@ export default function Tables() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -115,6 +129,8 @@ export default function Tables() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 		})
 			.then(response => response.json())

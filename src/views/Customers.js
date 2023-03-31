@@ -8,12 +8,18 @@ import Customer_AddEditModal from './components/modals/Customer_AddEditModal'
 import Customers_DeleteModal from './components/modals/Customer_DeleteEditModal'
 
 
-export default function Customers() {
+export default function Customers({token}) {
 	let formData = new FormData();
 	const [customers, setCustomers] = useState([])
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/customer")
+		fetch(process.env.REACT_APP_API_URL+"api/customer",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => {
 				return res.json()
 			})
@@ -57,8 +63,10 @@ export default function Customers() {
 	const addCustomer = (e) => {
 		fetch(process.env.REACT_APP_API_URL+"api/customer/new", {
 			method: "POST",
+			
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token,
 			},
 			body: JSON.stringify(formData)
 		})
@@ -80,7 +88,11 @@ export default function Customers() {
 		const id = document.querySelector("#hdnCustomerId").value
 		fetch(process.env.REACT_APP_API_URL+"api/customer/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+
+			header: {
+			"accept": "application/json",
+			"x-access-token": token
+		}
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -99,6 +111,7 @@ export default function Customers() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 			body: JSON.stringify(formData)
 		})
@@ -119,6 +132,7 @@ export default function Customers() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 		})
 			.then(response => response.json())

@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react'
 
 export default function Order_AddEditModal({ master, updateFormData, customers, tables, items }) {
-
-    console.log(customers)
-
     return (
         <div className="modal fade" id={"edit" + master} tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">

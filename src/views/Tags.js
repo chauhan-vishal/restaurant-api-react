@@ -7,17 +7,23 @@ import $ from 'jquery'
 import Tag_AddEditModal from './components/modals/Tag_AddEditModal'
 import Tag_DeleteModal from './components/modals/Tag_DeleteModal'
 
-export default function Tags() {
+export default function Tags({ token }) {
 	let formData = new FormData();
 	const [tags, setTags] = useState([])
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/tag")
+		fetch(process.env.REACT_APP_API_URL + "api/tag", {
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => {
 				return res.json()
 			})
 			.then(response => {
-				const documents = response.document.map((item, index) => {
+				const documents = response.document && response.document.map((item, index) => {
 					item.serial = index + 1
 					return item
 				})
@@ -56,7 +62,7 @@ export default function Tags() {
 				break;
 			case "delete":
 				(flag) ? alert("Tag Deleted Successfully") : alert("Error Occured");
-				break;				
+				break;
 			case "edit":
 				(flag) ? alert("Tag Edited Successfully") : alert("Error Occured");
 				break;
@@ -81,10 +87,11 @@ export default function Tags() {
 	}
 
 	const addTag = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/tag/new", {
+		fetch(process.env.REACT_APP_API_URL + "api/tag/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 			body: JSON.stringify(formData)
 		})
@@ -103,9 +110,13 @@ export default function Tags() {
 
 	function deleteTag() {
 		const id = document.querySelector("#hdnTagId").value
-		fetch(process.env.REACT_APP_API_URL+"api/tag/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL + "api/tag/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			header: {
+				"accept": "application/json",
+				"x-access-token": token
+
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -120,7 +131,7 @@ export default function Tags() {
 	}
 
 	const updateTag = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/tag/update", {
+		fetch(process.env.REACT_APP_API_URL + "api/tag/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -140,7 +151,7 @@ export default function Tags() {
 	}
 
 	const toggleStatus = (tagId) => {
-		fetch(process.env.REACT_APP_API_URL+"api/tag/update/status/" + tagId, {
+		fetch(process.env.REACT_APP_API_URL + "api/tag/update/status/" + tagId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -279,7 +290,7 @@ export default function Tags() {
 			</div>
 
 			{/* AddEdit Tag Modal */}
-			<Tag_AddEditModal master="Tag" updateFormData={updateFormData}  />
+			<Tag_AddEditModal master="Tag" updateFormData={updateFormData} />
 
 			{/* Delete Tag Modal */}
 			<Tag_DeleteModal master="Tag" handleClick={deleteTag} />

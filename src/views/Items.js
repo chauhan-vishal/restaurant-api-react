@@ -7,12 +7,18 @@ import $ from 'jquery'
 import Item_AddEditModal from './components/modals/Item_AddEditModal'
 import Item_DeleteModal from './components/modals/Item_DeleteModal'
 
-export default function Items() {
+export default function Items({token}) {
 	let formData = new FormData();
 	const [items, setItems] = useState([])
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/item")
+		fetch(process.env.REACT_APP_API_URL+"api/item",{
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": token
+				}
+			})
 			.then(res => { return res.json() })
 			.then(response => {
 				const documents = response.document.map((item, index) => {
@@ -66,6 +72,8 @@ export default function Items() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+					
 			},
 			body: JSON.stringify(formData)
 		})
@@ -86,7 +94,11 @@ export default function Items() {
 		const id = document.querySelector("#hdnItemId").value
 		fetch(process.env.REACT_APP_API_URL+"api/Item/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": token
+					
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -105,6 +117,8 @@ export default function Items() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 			body: JSON.stringify(formData)
 		})
@@ -125,6 +139,8 @@ export default function Items() {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
+
 			},
 		})
 			.then(response => response.json())
@@ -284,7 +300,7 @@ export default function Items() {
 			</div>
 
 			{/* AddEdit Item Modal */}
-			<Item_AddEditModal master="Item" setImage={setImage} updateFormData={updateFormData} />
+			<Item_AddEditModal master="Item" setImage={setImage} updateFormData={updateFormData} token={token}/>
 
 			{/* Delete Item Modal */}
 			<Item_DeleteModal master="Item" handleClick={deleteItem} />
