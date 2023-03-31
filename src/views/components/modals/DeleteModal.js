@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function User_DeleteModal({ master, handleClick }) {
+export default function DeleteModal({ master, handleClick }) {
 
     return (
         <div className="modal fade" id={"delete" + master} tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">

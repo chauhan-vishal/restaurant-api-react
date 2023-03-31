@@ -5,7 +5,7 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import Tag_AddEditModal from './components/modals/Tag_AddEditModal'
-import Tag_DeleteModal from './components/modals/Tag_DeleteModal'
+import DeleteModal from './components/modals/DeleteModal'
 
 export default function Tags({ token }) {
 	let formData = new FormData();
@@ -293,7 +293,7 @@ export default function Tags({ token }) {
 			<Tag_AddEditModal master="Tag" updateFormData={updateFormData} />
 
 			{/* Delete Tag Modal */}
-			<Tag_DeleteModal master="Tag" handleClick={deleteTag} />
+			<DeleteModal master="Tag" handleClick={deleteTag} />
 		</div>
 	)
 }

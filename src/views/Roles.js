@@ -5,7 +5,7 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import Role_AddEditModal from './components/modals/Role_AddEditModal'
-import Role_DeleteModal from "./components/modals/Role_DeleteModal"
+import DeleteModal from "./components/modals/DeleteModal"
 
 
 export default function Roles({token}) {
@@ -273,7 +273,7 @@ export default function Roles({token}) {
 			<Role_AddEditModal master="Role" updateFormData={updateFormData} />
 
 			{/* Delete Role Modal */}
-			<Role_DeleteModal master="Role" handleClick={deleteRole} />
+			<DeleteModal master="Role" handleClick={deleteRole} />
 		</div>
 	)
 }

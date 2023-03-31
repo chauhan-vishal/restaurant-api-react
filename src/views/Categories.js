@@ -5,7 +5,7 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import Category_AddEditModal from './components/modals/Category_AddEditModal'
-import Category_DeleteModal from './components/modals/Category_DeleteModal'
+import DeleteModal from './components/modals/DeleteModal'
 
 
 export default function Categories({ token }) {
@@ -95,6 +95,7 @@ export default function Categories({ token }) {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 			body: JSON.stringify(formData)
 		})
@@ -115,7 +116,10 @@ export default function Categories({ token }) {
 		const id = document.querySelector("#hdnCategoryId").value
 		fetch(process.env.REACT_APP_API_URL + "api/category/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			headers: {
+				"accept": "application/json",
+				"x-access-token": token
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -134,6 +138,7 @@ export default function Categories({ token }) {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 			body: JSON.stringify(formData)
 		})
@@ -154,6 +159,7 @@ export default function Categories({ token }) {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 		})
 			.then(response => response.json())
@@ -301,7 +307,7 @@ export default function Categories({ token }) {
 			<Category_AddEditModal master="Category" updateFormData={updateFormData} setImage={setImage} cuisines={cuisines} />
 
 			{/* Delete Category Modal */}
-			<Category_DeleteModal master="Category" handleClick={deleteCategory} />
+			<DeleteModal master="Category" handleClick={deleteCategory} />
 		</div>
 	)
 }

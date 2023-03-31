@@ -5,7 +5,7 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import Customer_AddEditModal from './components/modals/Customer_AddEditModal'
-import Customers_DeleteModal from './components/modals/Customer_DeleteEditModal'
+import DeleteModal from './components/modals/DeleteModal'
 
 
 export default function Customers({token}) {
@@ -296,7 +296,7 @@ export default function Customers({token}) {
 			<Customer_AddEditModal master="Customer" updateFormData={updateFormData} />
 
 			{/* Delete Customer Modal */}
-			<Customers_DeleteModal master="Customer" handleClick={deleteCustomer} />
+			<DeleteModal master="Customer" handleClick={deleteCustomer} />
 		</div>
 	)
 }

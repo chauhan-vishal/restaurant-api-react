@@ -6,7 +6,8 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import Department_AddEditModal from './components/modals/Department_AddEditModal'
-import Departments_DeleteModal from './components/modals/Department_DeleteModal'
+import DeleteModal from './components/modals/DeleteModal'
+
 
 export default function Departments({token}) {
 	let formData = new FormData();
@@ -264,7 +265,7 @@ export default function Departments({token}) {
 			<Department_AddEditModal master="Department" updateFormData={updateFormData} />
 
 			{/* Delete Department Modal */}
-			<Departments_DeleteModal master="Department" handleClick={deleteDepartment} />
+			<DeleteModal master="Department" handleClick={deleteDepartment} />
 		</div>
 	)
 }

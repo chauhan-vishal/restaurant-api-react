@@ -6,7 +6,7 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import Cuisine_AddEditModal from './components/modals/Cuisine_AddEditModal'
-import Cuisine_DeleteModal from './components/modals/Cuisine_DeleteModal'
+import DeleteModal from './components/modals/DeleteModal'
 
 
 export default function Cuisnes({ token }) {
@@ -280,7 +280,7 @@ export default function Cuisnes({ token }) {
 			<Cuisine_AddEditModal master="Cuisine" updateFormData={updateFormData} setImage={setImage} />
 
 			{/* Delete Cuisine Modal */}
-			<Cuisine_DeleteModal master="Cuisine" handleClick={deleteCuisine} />
+			<DeleteModal master="Cuisine" handleClick={deleteCuisine} />
 		</div>
 	)
 }

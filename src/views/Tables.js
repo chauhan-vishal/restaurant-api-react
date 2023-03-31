@@ -4,7 +4,7 @@ import MaterialTable from 'material-table'
 
 import $ from 'jquery'
 import Table_AddEditModal from './components/modals/Table_AddEditModal'
-import Tables_DeleteModal from './components/modals/Table_DeleteEditModal'
+import DeleteModal from './components/modals/DeleteModal'
 
 export default function Tables({token}) {
 	let formData = new FormData();
@@ -268,7 +268,7 @@ export default function Tables({token}) {
 			<Table_AddEditModal master="Table" updateFormData={updateFormData} />
 
 			{/* Delete Table Modal */}
-			<Tables_DeleteModal master="Table" handleClick={deleteTable} />
+			<DeleteModal master="Table" handleClick={deleteTable} />
 		</div>
 	)
 }
