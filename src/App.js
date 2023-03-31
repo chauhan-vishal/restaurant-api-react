@@ -15,16 +15,26 @@ import "../src/resources/landrick/select2/css/select2.min.css"
 import "../src/resources/landrick/select2/css/select2-bootstrap4.min.css"
 
 
-// import "../src/resources/landrick/js/bootstrap.bundle.min.js"
-// import "../src/resources/landrick/js/simplebar.min.js"
-// import "../src/resources/landrick/js/feather.min.js"
-// import "../src/resources/landrick/js/plugins.init.js"
-// import "../src/resources/landrick/select2/js/select2.full"
-// import "../src/resources/landrick/js/theme-app.js"
+// import bootstrap from "../src/resources/landrick/js/bootstrap.bundle.min.js"
+// import simplebar from "../src/resources/landrick/js/simplebar.min.js"
+// import feather from "../src/resources/landrick/js/feather.min.js"
+// import plugins from "../src/resources/landrick/js/plugins.init.js"
+// import select2 from "../src/resources/landrick/select2/js/select2.full"
+// import themeapp from "./resources/landrick/js/themeapp.js"
 
 function App() {
+
 	const [isLogIn, setIsLogIn] = useState(false)
 	const token = useRef("");
+
+	// const loadJS = () =>{
+	// 	bootstrap()
+	// 	simplebar()
+	// 	feather()
+	// 	plugins()
+	// 	select2()
+	// 	themeapp()
+	// }
 
 	async function toggleLogin(result, token) {
 		await setIsLogIn(!isLogIn)
@@ -43,6 +53,9 @@ function App() {
 	}
 
 	useEffect(() => {
+		
+		// loadJS()
+
 		if (window.sessionStorage.getItem("isLogIn") == "true") {
 			setIsLogIn(true)
 			token.current = window.sessionStorage.getItem("token")

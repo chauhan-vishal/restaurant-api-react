@@ -5,7 +5,7 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import Order_AddEditModal from './components/modals/Order_AddEditModal'
-import Order_DeleteModal from './components/modals/Order_DeleteModal'
+import DeleteModal from './components/modals/DeleteModal'
 
 
 export default function Orders() {
@@ -292,7 +292,7 @@ export default function Orders() {
 			<Order_AddEditModal master="Order" updateFormData={updateFormData} />
 
 			{/* Delete Order Modal */}
-			<Order_DeleteModal master="Order" handleClick={deleteOrder} />
+			<DeleteModal master="Order" handleClick={deleteOrder} />
 		</div>
 	)
 }

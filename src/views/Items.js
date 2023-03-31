@@ -5,14 +5,20 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import Item_AddEditModal from './components/modals/Item_AddEditModal'
-import Item_DeleteModal from './components/modals/Item_DeleteModal'
+import DeleteModal from './components/modals/DeleteModal'
 
-export default function Items() {
+export default function Items({ token }) {
 	let formData = new FormData();
 	const [items, setItems] = useState([])
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/item")
+		fetch(process.env.REACT_APP_API_URL + "api/item", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": token
+			}
+		})
 			.then(res => { return res.json() })
 			.then(response => {
 				const documents = response.document.map((item, index) => {
@@ -62,10 +68,11 @@ export default function Items() {
 	}
 
 	const addItem = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/Item/new", {
+		fetch(process.env.REACT_APP_API_URL + "api/Item/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 			body: JSON.stringify(formData)
 		})
@@ -84,9 +91,12 @@ export default function Items() {
 
 	function deleteItem() {
 		const id = document.querySelector("#hdnItemId").value
-		fetch(process.env.REACT_APP_API_URL+"api/Item/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL + "api/Item/delete/" + id, {
 			method: "DELETE",
-			header: "accept: application/json",
+			headers: {
+				"accept": "application/json",
+				"x-access-token": token
+			},
 		})
 			.then(response => response = response.json())
 			.then(response => {
@@ -101,10 +111,11 @@ export default function Items() {
 	}
 
 	const updateItem = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/Item/update/", {
+		fetch(process.env.REACT_APP_API_URL + "api/Item/update/", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 			body: JSON.stringify(formData)
 		})
@@ -121,10 +132,11 @@ export default function Items() {
 	}
 
 	const toggleStatus = (itemId) => {
-		fetch(process.env.REACT_APP_API_URL+"api/item/update/status/" + itemId, {
+		fetch(process.env.REACT_APP_API_URL + "api/item/update/status/" + itemId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 		})
 			.then(response => response.json())
@@ -157,7 +169,7 @@ export default function Items() {
 		document.querySelector("#qty").value = ""
 		document.querySelector("#tagId").value = ""
 		document.querySelector("#img").value = ""
-		}
+	}
 
 	const updateModalValues = (item) => {
 		formData = ({
@@ -193,25 +205,25 @@ export default function Items() {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Item Name", field:"name", cellStyle: { textAlign: "Left" }
+			title: "Item Name", field: "name", cellStyle: { textAlign: "Left" }
 		},
 		{
-			title: "Item desceprrition", field:"desc", cellStyle: { textAlign: "Left" }
+			title: "Item desceprrition", field: "desc", cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Category Name", field: "categoryId.name"
 		},
 		{
-			title: "Price",field:"price" , headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Price", field: "price", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
-			title: "Qunty",field:"qty" , headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Qunty", field: "qty", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Image",
 			render: item => <img src={item.img} style={imgStyle} />
 		},
-		
+
 		{
 			title: "Status",
 			render: item => {
@@ -287,7 +299,7 @@ export default function Items() {
 			<Item_AddEditModal master="Item" setImage={setImage} updateFormData={updateFormData} />
 
 			{/* Delete Item Modal */}
-			<Item_DeleteModal master="Item" handleClick={deleteItem} />
+			<DeleteModal master="Item" handleClick={deleteItem} />
 		</div>
 	)
 }

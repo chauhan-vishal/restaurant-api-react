@@ -5,8 +5,7 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import Employee_AddEditModal from './components/modals/Employee_AddEditModal'
-// import Category_DeleteModal from './components/modals/Category_DeleteModal'
-import Tag_DeleteModal from './components/modals/Tag_DeleteModal'
+import DeleteModal from './components/modals/DeleteModal'
 
 export default function Employees() {
 	let formData = new FormData();
@@ -310,7 +309,7 @@ export default function Employees() {
 			<Employee_AddEditModal master="Employee" setImage={setImage} updateFormData={updateFormData} />
 
 			{/* Delete Employee Modal */}
-			<Tag_DeleteModal master="Employee" handleClick={deleteEmployee} />
+			<DeleteModal master="Employee" handleClick={deleteEmployee} />
 		</div>
 	)
 }
