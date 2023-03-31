@@ -190,7 +190,6 @@ export default function Customers({token}) {
 		document.querySelector("#hdnCustomerId").value = customer._id
 	}
 
-
 	const imgStyle = {
 		width: "120px",
 		borderRadius: "10px"
