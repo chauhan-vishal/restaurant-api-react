@@ -7,13 +7,13 @@ export default function Item_AddEditModal({ master, setImage, updateFormData }) 
     const [tags, setTags] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:2503/api/category/")
+        fetch(process.env.REACT_APP_API_URL + "api/category/")
             .then(res => res.json())
             .then(res => {
                 setCategories(res.document)
             })
 
-        fetch("http://localhost:2503/api/tag/")
+        fetch(process.env.REACT_APP_API_URL + "api/tag/")
             .then(res => res.json())
             .then(res => {
                 setTags(res.document)

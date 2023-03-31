@@ -11,12 +11,14 @@ import DeleteModal from './components/modals/DeleteModal'
 export default function Orders() {
 	let formData = new FormData();
 	const [orders, setOrders] = useState([])
-	const [Customers, setCustomers] = useState([])
-	const [Tables, setTables] = useState([])
+	const [customers, setCustomers] = useState([])
+	const [tables, setTables] = useState([])
+	const [item, setItems] = useState([])
+
 
 	function fetchData() {
 
-		fetch(process.env.REACT_APP_API_URL+"api/order")
+		fetch(process.env.REACT_APP_API_URL + "api/order")
 			.then(res => { return res.json() })
 			.then(response => {
 				const documents = response.document.map((item, index) => {
@@ -25,18 +27,21 @@ export default function Orders() {
 				})
 				setOrders(documents)
 			})
-		fetch(process.env.REACT_APP_API_URL+"api/customer")
+		fetch(process.env.REACT_APP_API_URL + "api/customer")
 			.then(res => res.json())
 			.then(response => {
 				setCustomers(response.document)
-				console.log(response.document)
 			})
 
-		fetch(process.env.REACT_APP_API_URL+"api/table")
+		fetch(process.env.REACT_APP_API_URL + "api/table")
 			.then(res => res.json())
 			.then(response => {
 				setTables(response.document)
-				console.log(response.document)
+			})
+		fetch(process.env.REACT_APP_API_URL + "api/item")
+			.then(res => res.json())
+			.then(response => {
+				setItems(response.document)
 			})
 	}
 
@@ -79,7 +84,7 @@ export default function Orders() {
 	}
 
 	const addOrder = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/order/new", {
+		fetch(process.env.REACT_APP_API_URL + "api/order/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -101,7 +106,7 @@ export default function Orders() {
 
 	function deleteOrder() {
 		const id = document.querySelector("#hdnOrderId").value
-		fetch(process.env.REACT_APP_API_URL+"api/order/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL + "api/order/delete/" + id, {
 			method: "DELETE",
 			header: "accept: application/json",
 		})
@@ -118,7 +123,7 @@ export default function Orders() {
 	}
 
 	const updateOrder = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/order/update/", {
+		fetch(process.env.REACT_APP_API_URL + "api/order/update/", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -138,7 +143,7 @@ export default function Orders() {
 	}
 
 	const toggleStatus = (orderId) => {
-		fetch(process.env.REACT_APP_API_URL+"api/order/update/status/" + orderId, {
+		fetch(process.env.REACT_APP_API_URL + "api/order/update/status/" + orderId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -167,11 +172,11 @@ export default function Orders() {
 	}
 
 	const clearModalValues = () => {
-		document.querySelector("#name").value = ""
-		document.querySelector("#contact").value = ""
+		document.querySelector("#customerId").value = ""
+		// document.querySelector("#contact").value = ""
 		document.querySelector("#tableId").value = ""
 		document.querySelector("#date").value = ""
-		document.querySelector("#item").value = ""
+		document.querySelector("#itemId").value = ""
 		document.querySelector("#qty").value = ""
 		document.querySelector("#amount").value = ""
 		document.querySelector("#desc").value = ""
@@ -180,25 +185,25 @@ export default function Orders() {
 	const updateModalValues = (order) => {
 		formData = ({
 			...formData,
-			employeeId: order._id
+			orderId: order._id
 		})
 
 
 		document.querySelector("#hdnOrderID").value = order._id
-		document.querySelector("#name").value = order.customerId.name
-		document.querySelector("#contact").value = order.customerId.contact
+		document.querySelector("#customeId").value = order.customerId._id
+		// document.querySelector("#contact").value = order.customerId.contact
 		document.querySelector("#tableId").value = order.tableId._id
 		document.querySelector("#date").value = order.date.split("T")[0]
-		document.querySelector("#item").value = order.item
+		document.querySelector("#itemId").value = order.itemId._id
 		document.querySelector("#qty").value = order.qty
 		document.querySelector("#amount").value = order.amount
 		document.querySelector("#desc").value = order.qty
 	}
 
-	 const setDeleteModalProps = (order) => {
-	// 	document.querySelector("#delete-name").innerHTML = order.name.first + " " + employee.name.last
-	 	document.querySelector("#hdnOrderId").value = order._id
-	 }
+	const setDeleteModalProps = (order) => {
+		// 	document.querySelector("#delete-name").innerHTML = order.name.first + " " + employee.name.last
+		document.querySelector("#hdnOrderId").value = order._id
+	}
 
 
 	// const imgStyle = {
@@ -211,32 +216,36 @@ export default function Orders() {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Name", field:"name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Name", field: "customerId.name.first", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
-			title: "Contact", field: "contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Contact", field: "customerId.contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 
 		},
 		{
-			title: "date", field: "date", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Table", field: "tableId.tableNo", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+
+		},
+		{
+			title: "date", field: "orderDate", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 
 		},
 		{
 			title: "amount", field: "amount", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 
 		},
-		// {
-		// 	title: "Actions", render: (item) => {
-		// 		return <>
-		// 			<button className="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target={"#editOrder"} onClick={() => { setModal("Edit", item) }}>
-		// 				<i className="ti ti-edit"></i>
-		// 			</button>
-		// 			<button className="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target={"#deleteOrder"} onClick={() => { setDeleteModalProps(item) }}>
-		// 				<i className="ti ti-trash"></i>
-		// 			</button>
-		// 		</>
-		// 	}
-		// }
+		{
+			title: "Actions", render: (item) => {
+				return <>
+					<button className="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target={"#editOrder"} onClick={() => { setModal("Edit", item) }}>
+						<i className="ti ti-edit"></i>
+					</button>
+					<button className="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target={"#deleteOrder"} onClick={() => { setDeleteModalProps(item) }}>
+						<i className="ti ti-trash"></i>
+					</button>
+				</>
+			}
+		}
 	];
 
 
@@ -289,7 +298,7 @@ export default function Orders() {
 			</div>
 
 			{/* AddEdit Order Modal */}
-			<Order_AddEditModal master="Order" updateFormData={updateFormData} />
+			<Order_AddEditModal master="Order" updateFormData={updateFormData} customers={customers} tables={tables} items={item} />
 
 			{/* Delete Order Modal */}
 			<DeleteModal master="Order" handleClick={deleteOrder} />
