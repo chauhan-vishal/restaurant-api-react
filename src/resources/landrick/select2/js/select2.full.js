@@ -1,5 +1,6 @@
 import jQuery from 'jquery';
 export default function select2() {
+  /* eslint no-undef: "off"*/
   /*!
  * Select2 4.0.13
  * https://select2.github.io
