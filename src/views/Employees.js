@@ -230,10 +230,10 @@ export default function Employees({ token }) {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Employee Name", render: (emp) => { return emp.name.first + " " + emp.name.last }, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Name", render: (emp) => { return emp.name.first + " " + emp.name.last }, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
-			title: "Department Name", field: "departmentId.name"
+		title: "Department", field: "departmentId.name"
 		},
 		{
 			title: "Image",

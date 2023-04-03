@@ -213,7 +213,8 @@ export default function Categories({ token }) {
 
 	const imgStyle = {
 		width: "120px",
-		borderRadius: "10px"
+		borderRadius: "10px",
+		aspectRatio : "1"
 	}
 
 	const columns = [
@@ -221,17 +222,14 @@ export default function Categories({ token }) {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Category Name", field: "name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
-		},
-		{
-			title: "Category Desc", field: "desc", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Name", field: "name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Image",
 			render: item => <img src={item.img} style={imgStyle} />
 		},
 		{
-			title: "Cuisine Name", field: "cuisineId.name"
+			title: "Cuisine", field: "cuisineId.name"
 		},
 		{
 			title: "Status",

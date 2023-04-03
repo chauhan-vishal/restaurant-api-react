@@ -249,7 +249,7 @@ export default function Orders({token}) {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Name", field: "customerId.name.first", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Customer Name", field: "customerId.name.first", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Contact", field: "customerId.contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
@@ -260,11 +260,11 @@ export default function Orders({token}) {
 
 		},
 		{
-			title: "date", field: "orderDate", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Date", field: "orderDate", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 
 		},
 		{
-			title: "amount", field: "amount", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Amount", field: "amount", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 
 		},
 		{

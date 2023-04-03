@@ -44,7 +44,7 @@ export default function Category_AddEditModal({ master, updateFormData, setImage
                                                 <option defaultChecked value="" defaultValue>Open this select menu</option>
                                                 {
                                                     cuisines && cuisines.map((cuisine, index) => {
-                                                        return (
+                                                        return (cuisine.status=="active") && (
                                                             <option key={index} value={cuisine._id}>{cuisine.name}</option>
                                                         )
                                                     })

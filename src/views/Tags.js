@@ -155,6 +155,7 @@ export default function Tags({ token }) {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": token
 			},
 		})
 			.then(response => response.json())

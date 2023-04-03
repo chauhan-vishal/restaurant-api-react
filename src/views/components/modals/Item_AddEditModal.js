@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import $ from "jquery";
 
-export default function Item_AddEditModal({ master, setImage, updateFormData, token }) {
+export default function Item_AddEditModal({ master, setImage, updateFormData, token, getSelectedValue }) {
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
 
@@ -45,7 +45,6 @@ export default function Item_AddEditModal({ master, setImage, updateFormData, to
         })
     });
 
-
     return (
         <div className="modal fade" id={"edit" + master} tabIndex="-1" aria-labelledby="LoginForm-title" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
@@ -87,7 +86,7 @@ export default function Item_AddEditModal({ master, setImage, updateFormData, to
                                             <option defaultChecked value="" defaultValue>Open this select menu</option>
                                             {
                                                 categories && categories.map((category, index) => {
-                                                    return (
+                                                    return (category.status == "active") && (
                                                         <option key={index} value={category._id}>{category.name}</option>
                                                     )
                                                 })
@@ -120,11 +119,11 @@ export default function Item_AddEditModal({ master, setImage, updateFormData, to
                             </div>
                             <div className='row'>
                                 <div className="col-md-12">
-                                    <div className="form-group">
+                                    <div className="form-group mb-3">
                                         <label className="form-label">Tags <span className="text-danger">*</span></label>
-                                        <select className="select2" id="tagId" multiple="multiple" data-placeholder="Select a Tag" style={{ width: "100%" }}>
+                                        <select className="select2" id="tagId" multiple="multiple" data-placeholder="Select a Tag" style={{ width: "100%" }} onChange={getSelectedValue}>
                                             {
-                                                tags && tags.map(tag => (
+                                                tags && tags.map(tag => (tag.status == "active") && (
                                                     <option key={tag._id} value={tag._id}>
                                                         {tag.name}
                                                     </option>

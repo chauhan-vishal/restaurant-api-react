@@ -220,21 +220,14 @@ export default function Users({token}) {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Employee Name", render: user => { return user.employeeId.name.first + " " + user.employeeId.name.last }, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Name", render: user => { return user.employeeId.name.first + " " + user.employeeId.name.last }, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Username", field: "username", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
-		// {
-		// 	title: "Password", field: "contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
-		// },
 		{
 			title: "Role", field: "roleId.name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
-		// {
-		// 	title: "Date", field: "date", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
-		// },
-
 		{
 			title: "Status",
 			render: item => {

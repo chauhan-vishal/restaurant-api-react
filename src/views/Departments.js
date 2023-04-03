@@ -10,7 +10,7 @@ import DeleteModal from './components/modals/DeleteModal'
 
 
 export default function Departments({token}) {
-	let formData = new FormData();
+	let formData = new FormData();	
 	const [departments, setDepartments] = useState([])
 
 	function fetchData() {

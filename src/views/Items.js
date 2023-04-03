@@ -34,6 +34,7 @@ export default function Items({ token }) {
 	}, [])
 
 	const updateFormData = (e) => {
+		console.log(formData)
 		const { name, value, type, checked } = e.target
 		formData = ({
 			...formData,
@@ -53,6 +54,24 @@ export default function Items({ token }) {
 		};
 	}
 
+
+	const getSelectValues = () => {
+		const select = document.querySelector("#tagId")
+		var result = [];
+		var options = select && select.options;
+		var opt;
+
+		for (var i = 0, iLen = options.length; i < iLen; i++) {
+			opt = options[i];
+
+			if (opt.selected) {
+				result.push(opt.value || opt.text);
+			}
+		}
+		return (result);
+	}
+
+
 	function showAlert(flag, operation) {
 		switch (operation) {
 			case "add":
@@ -68,6 +87,8 @@ export default function Items({ token }) {
 	}
 
 	const addItem = (e) => {
+		formData.tags = getSelectValues()
+
 		fetch(process.env.REACT_APP_API_URL + "api/Item/new", {
 			method: "POST",
 			headers: {
@@ -111,6 +132,7 @@ export default function Items({ token }) {
 	}
 
 	const updateItem = (e) => {
+		formData.tags = getSelectValues()
 		fetch(process.env.REACT_APP_API_URL + "api/Item/update/", {
 			method: "PUT",
 			headers: {
@@ -169,6 +191,7 @@ export default function Items({ token }) {
 		document.querySelector("#qty").value = ""
 		document.querySelector("#tagId").value = ""
 		document.querySelector("#img").value = ""
+		document.querySelector("#status").checked = false
 	}
 
 	const updateModalValues = (item) => {
@@ -177,14 +200,18 @@ export default function Items({ token }) {
 			itemId: item._id
 		})
 
-
-		document.querySelector("#hdnItemID").value = item._id
 		document.querySelector("#name").value = item.name
 		document.querySelector("#desc").value = item.name
 		document.querySelector("#categoryId").value = item.categoryId._id
 		document.querySelector("#price").value = item.price
 		document.querySelector("#qty").value = item.qty
-		document.querySelector("#tagId").value = item.tagId._id
+
+		const options = document.querySelector("#tagId").options
+		for (let i = 0; i < options.length; i++) {
+			let option = options[i];
+			option.selected = true
+		}
+
 		// document.querySelector("#img").value = employee.img
 		document.querySelector("#status").checked = (item.status == "active") ? true : false;
 	}
@@ -197,7 +224,8 @@ export default function Items({ token }) {
 
 	const imgStyle = {
 		width: "120px",
-		borderRadius: "10px"
+		borderRadius: "10px",
+		aspectRatio: "1"
 	}
 
 	const columns = [
@@ -205,23 +233,24 @@ export default function Items({ token }) {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Item Name", field: "name", cellStyle: { textAlign: "Left" }
+			title: "Name", field: "name", cellStyle: { textAlign: "Left" }
 		},
 		{
-			title: "Item desceprrition", field: "desc", cellStyle: { textAlign: "Left" }
+			title: "Image", render: item => <img src={item.img} style={imgStyle} />
 		},
 		{
-			title: "Category Name", field: "categoryId.name"
+			title: "Category", field: "categoryId.name"
 		},
 		{
-			title: "Price", field: "price", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Tags", render: item => {
+				return item.tags.map((tag, index) => <label key={index} className="badge bg-soft-success rounded px-3 py-1 mb-1">{tag.name}</label>)
+			}
 		},
 		{
-			title: "Qunty", field: "qty", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Price", render: item => item.price + "/- Rs", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
-			title: "Image",
-			render: item => <img src={item.img} style={imgStyle} />
+			title: "Quantity", render: item => item.qty + " gm", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 
 		{
@@ -296,7 +325,7 @@ export default function Items({ token }) {
 			</div>
 
 			{/* AddEdit Item Modal */}
-			<Item_AddEditModal master="Item" setImage={setImage} updateFormData={updateFormData} token={token}/>
+			<Item_AddEditModal master="Item" setImage={setImage} updateFormData={updateFormData} token={token} />
 
 			{/* Delete Item Modal */}
 			<DeleteModal master="Item" handleClick={deleteItem} />

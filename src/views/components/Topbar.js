@@ -41,10 +41,10 @@ export default function Topbar({ toggleLogin }) {
 
                     <li className="list-inline-item mb-0 ms-1">
                         <div className="dropdown dropdown-primary">
-                            <button type="button" className="btn btn-soft-light dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/client/05.jpg" className="avatar avatar-ex-small rounded" alt="" /></button>
+                            <button type="button" className="btn btn-soft-light dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/resources/icons/user.svg" className="avatar avatar-ex-small rounded" alt="" /></button>
                             <div className="dropdown-menu dd-menu dropdown-menu-end bg-white shadow border-0 mt-3 py-3" style={{ minWidth: "200px" }}>
                                 <NavLink className="dropdown-item d-flex align-items-center text-dark pb-3" to="profile.html">
-                                    <img src="assets/images/client/05.jpg" className="avatar avatar-md-sm rounded-circle border shadow" alt="" />
+                                    <img src="./resources/icons/user.svg" className="avatar avatar-md-sm rounded-circle border shadow" alt="" />
                                     <div className="flex-1 ms-2">
                                         <span className="d-block">Cristina Julia</span>
                                         <small className="text-muted">UI / UX Designer</small>

@@ -145,7 +145,7 @@ export default function Customers({token}) {
 
 	const setModal = (option, item) => {
 		document.querySelector("#option").innerHTML = option
-		document.querySelector("#btnSubmit").innerHTML = option + "Customer"
+		document.querySelector("#btnSubmit").innerHTML = option + " Customer"
 		$("#btnSubmit").off()
 		if (option == "Add") {
 			clearModalValues()
@@ -200,13 +200,13 @@ export default function Customers({token}) {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Customer Name", render: customer => { return customer.name.first + " " + customer.name.last }, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Name", render: customer => { return customer.name.first + " " + customer.name.last }, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
-			title: "Customer Email", field: "email", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Email", field: "email", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
-			title: "Customer Contact", field: "contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Contact", field: "contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Gender",

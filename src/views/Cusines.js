@@ -97,7 +97,7 @@ export default function Cuisnes({ token }) {
 		const id = document.querySelector("#hdnCuisineId").value
 		fetch(process.env.REACT_APP_API_URL + "api/cuisine/delete/" + id, {
 			method: "DELETE",
-			header: {
+			headers: {
 				"Content-Type": "application/json",
 				"x-access-token": token
 			}
@@ -191,7 +191,8 @@ export default function Cuisnes({ token }) {
 
 	const imgStyle = {
 		width: "120px",
-		borderRadius: "10px"
+		borderRadius: "10px",
+		aspectRatio : "1"
 	}
 
 	const columns = [
