@@ -10,7 +10,7 @@ import User_AddEditModal from './components/modals/User_AddEditModal'
 import DeleteModal from './components/modals/DeleteModal'
 
 
-export default function Users({token}) {
+export default function Users({ token }) {
 	let formData = new FormData();
 	const [users, setUsers] = useState([])
 	const [employees, setEmployees] = useState([])
@@ -18,7 +18,7 @@ export default function Users({token}) {
 
 
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/user",{
+		fetch(process.env.REACT_APP_API_URL + "api/user", {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -36,7 +36,7 @@ export default function Users({token}) {
 				setUsers(documents)
 			})
 
-		fetch(process.env.REACT_APP_API_URL+"api/employee",{
+		fetch(process.env.REACT_APP_API_URL + "api/employee", {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -48,7 +48,7 @@ export default function Users({token}) {
 				setEmployees(response.document)
 			})
 
-		fetch(process.env.REACT_APP_API_URL+"api/role",{
+		fetch(process.env.REACT_APP_API_URL + "api/role", {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -73,8 +73,6 @@ export default function Users({token}) {
 		})
 	}
 
-
-
 	function showAlert(flag, operation) {
 		switch (operation) {
 			case "add":
@@ -90,7 +88,7 @@ export default function Users({token}) {
 
 	const addUser = (e) => {
 		console.log(formData)
-		fetch(process.env.REACT_APP_API_URL+"api/user/new", {
+		fetch(process.env.REACT_APP_API_URL + "api/user/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -114,7 +112,7 @@ export default function Users({token}) {
 
 	function deleteUser() {
 		const id = document.querySelector("#hdnUserId").value
-		fetch(process.env.REACT_APP_API_URL+"api/user/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL + "api/user/delete/" + id, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -135,7 +133,7 @@ export default function Users({token}) {
 	}
 
 	const updateUser = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/user/update", {
+		fetch(process.env.REACT_APP_API_URL + "api/user/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -157,12 +155,11 @@ export default function Users({token}) {
 	}
 
 	const toggleStatus = (userId) => {
-		fetch(process.env.REACT_APP_API_URL+"api/user/update/status/" + userId, {
+		fetch(process.env.REACT_APP_API_URL + "api/user/update/status/" + userId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 				"x-access-token": token
-
 			},
 		})
 			.then(response => response.json())
@@ -300,7 +297,7 @@ export default function Users({token}) {
 			</div>
 
 			{/* AddEdit User Modal */}
-			<User_AddEditModal master="User" updateFormData={updateFormData} employees={employees} roles ={roles} />
+			<User_AddEditModal master="User" updateFormData={updateFormData} employees={employees} roles={roles} />
 
 			{/* Delete User Modal */}
 			<DeleteModal master="User" handleClick={deleteUser} />

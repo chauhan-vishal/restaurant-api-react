@@ -8,7 +8,7 @@ import Order_AddEditModal from './components/modals/Order_AddEditModal'
 import DeleteModal from './components/modals/DeleteModal'
 
 
-export default function Orders({token}) {
+export default function Orders({ token }) {
 	let formData = new FormData();
 	const [orders, setOrders] = useState([])
 	const [customers, setCustomers] = useState([])
@@ -18,7 +18,7 @@ export default function Orders({token}) {
 
 	function fetchData() {
 
-		fetch(process.env.REACT_APP_API_URL + "api/order" ,{
+		fetch(process.env.REACT_APP_API_URL + "api/order", {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -33,7 +33,7 @@ export default function Orders({token}) {
 				})
 				setOrders(documents)
 			})
-		fetch(process.env.REACT_APP_API_URL + "api/customer",{
+		fetch(process.env.REACT_APP_API_URL + "api/customer", {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -45,7 +45,7 @@ export default function Orders({token}) {
 				setCustomers(response.document)
 			})
 
-		fetch(process.env.REACT_APP_API_URL + "api/table",{
+		fetch(process.env.REACT_APP_API_URL + "api/table", {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -56,7 +56,7 @@ export default function Orders({token}) {
 			.then(response => {
 				setTables(response.document)
 			})
-		fetch(process.env.REACT_APP_API_URL + "api/item",{
+		fetch(process.env.REACT_APP_API_URL + "api/item", {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -249,7 +249,7 @@ export default function Orders({token}) {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Customer Name", field: "customerId.name.first", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Customer Name", field: "customerId.name", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Contact", field: "customerId.contact", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
@@ -265,6 +265,10 @@ export default function Orders({token}) {
 		},
 		{
 			title: "Amount", field: "amount", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+
+		},
+		{
+			title: "Order Status", field: "orderStatus", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 
 		},
 		{

@@ -17,21 +17,10 @@ export default function Customer_AddEditModal({ master, updateFormData }) {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="mb-3">
-                                            <label className="form-label">First Name <span className="text-danger">*</span></label>
+                                            <label className="form-label">Full Name <span className="text-danger">*</span></label>
                                             <div className="form-icon position-relative">
                                                 <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="first" id="first" type="text" className="form-control ps-5" placeholder="Customer Name :" onChange={updateFormData} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="mb-3">
-                                            <label className="form-label">Last Name <span className="text-danger">*</span></label>
-                                            <div className="form-icon position-relative">
-                                                <i data-feather="user" className="fea icon-sm icons"></i>
-                                                <input name="last" id="last" type="text" className="form-control ps-5" placeholder="Customer Name :" onChange={updateFormData} />
+                                                <input name="name" id="name" type="text" className="form-control ps-5" placeholder="Customer Name :" onChange={updateFormData} />
                                             </div>
                                         </div>
                                     </div>

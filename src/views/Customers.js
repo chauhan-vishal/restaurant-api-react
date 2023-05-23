@@ -86,6 +86,8 @@ export default function Customers({token}) {
 
 	function deleteCustomer() {
 		const id = document.querySelector("#hdnCustomerId").value
+
+		console.log(id)
 		fetch(process.env.REACT_APP_API_URL+"api/customer/delete/" + id, {
 			method: "DELETE",
 
@@ -158,8 +160,7 @@ export default function Customers({token}) {
 	}
 
 	const clearModalValues = () => {
-		document.querySelector("#first").value = ""
-		document.querySelector("#last").value = ""
+		document.querySelector("#name").value = ""
 		document.querySelector("#email").value = ""
 		document.querySelector("#contact").value = ""
 		//document.querySelector("#gender").value = ""
@@ -176,8 +177,7 @@ export default function Customers({token}) {
 
 		const gender = { "M": "rbdMale", "F": "rbdFemale", "O": "rbdOther" }
 
-		document.querySelector("#first").value = customer.name.first
-		document.querySelector("#last").value = customer.name.last
+		document.querySelector("#name").value = customer.name
 		document.querySelector("#email").value = customer.email
 		document.querySelector("#contact").value = customer.contact
 		document.querySelector("#" + gender[customer.gender]).checked = true
@@ -186,7 +186,7 @@ export default function Customers({token}) {
 	}
 
 	const setDeleteModalProps = (customer) => {
-		document.querySelector("#delete-name").innerHTML = customer.name.first + "  " + customer.name.last
+		document.querySelector("#delete-name").innerHTML = customer.name
 		document.querySelector("#hdnCustomerId").value = customer._id
 	}
 
@@ -200,7 +200,7 @@ export default function Customers({token}) {
 			title: "Sr. No", field: "serial"
 		},
 		{
-			title: "Name", render: customer => { return customer.name.first + " " + customer.name.last }, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+			title: "Name", render: customer => { return customer.name }, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
 		{
 			title: "Email", field: "email", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }

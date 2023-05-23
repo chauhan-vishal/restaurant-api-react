@@ -9,7 +9,8 @@ import Cuisine_AddEditModal from './components/modals/Cuisine_AddEditModal'
 import DeleteModal from './components/modals/DeleteModal'
 
 
-export default function Cuisnes({ token }) {
+export default function Cuisnes({ token, checkAccess }) {
+
 	let formData = new FormData();
 	const [cuisines, setCuisines] = useState([])
 
@@ -34,8 +35,11 @@ export default function Cuisnes({ token }) {
 	}
 
 	useEffect(() => {
-		fetchData()
+		if (checkAccess()) {
+			fetchData()
+		}
 	}, [])
+
 
 	const updateFormData = (e) => {
 		const { name, value, type, checked } = e.target
@@ -192,7 +196,7 @@ export default function Cuisnes({ token }) {
 	const imgStyle = {
 		width: "120px",
 		borderRadius: "10px",
-		aspectRatio : "1"
+		aspectRatio: "1"
 	}
 
 	const columns = [

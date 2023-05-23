@@ -35,16 +35,19 @@ function App() {
 	// 	themeapp()
 	// }
 
-	async function toggleLogin(result, token) {
+	async function toggleLogin(result, token, role) {
 		await setIsLogIn(!isLogIn)
 		if (isLogIn == true) {
-			window.sessionStorage.setItem("token", "")
-			window.sessionStorage.setItem("isLogIn", false)
+			window.sessionStorage.removeItem("token")
+			window.sessionStorage.removeItem("role")
+			window.sessionStorage.removeItem("isLogIn")
+			window.location.href = "/"
 
 			alert("Log Out Success")
 		}
 		else {
 			window.sessionStorage.setItem("token", token)
+			window.sessionStorage.setItem("role", role)
 			window.sessionStorage.setItem("isLogIn", !isLogIn)
 
 			alert("Login Success")
@@ -52,8 +55,6 @@ function App() {
 	}
 
 	useEffect(() => {
-
-		// loadJS()
 		select2()
 
 		if (window.sessionStorage.getItem("isLogIn") == "true") {

@@ -22,7 +22,7 @@ export default function Order_AddEditModal({ master, updateFormData, customers, 
                                                 {
                                                     customers && customers.map((customer, index) => {
                                                         return (
-                                                            <option key={index} value={customer._id}>{customer.name.first} {customer.name.last} ({customer.contact})</option>
+                                                            <option key={index} value={customer._id}>{customer.name} ({customer.contact})</option>
                                                         )
                                                     })
                                                 }

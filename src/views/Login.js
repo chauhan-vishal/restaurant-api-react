@@ -4,6 +4,20 @@ export default function Login({ toggleLogin }) {
 
     const [formData, setFormData] = useState(null)
 
+    const validateInput = (formData) => {
+        let result = true
+        const requiredValues = ["role", "username", "password"]
+
+        for (let i = 0; i < requiredValues.length; i++) {
+            if (!formData || !formData[requiredValues[i]]) {
+                alert(`Please enter ${requiredValues[i].charAt(0).toUpperCase() + requiredValues[i].slice(1)}!`)
+                return false
+            }
+        }
+
+        return result
+    };
+
     const updateFormData = (e) => {
         const { name, value } = e.target
         setFormData({
@@ -15,22 +29,25 @@ export default function Login({ toggleLogin }) {
     const submitLoginForm = (e) => {
         e.preventDefault();
 
-        fetch(process.env.REACT_APP_API_URL + "api/user/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(res => res.json())
-            .then(res => {
-                if(res.success){
-                    toggleLogin(res.success, res.document.token)
-                }
-                else{
-                    alert("Invalid Credentials ! Please try again...")
-                }
+        if (validateInput(formData)) {
+            fetch(process.env.REACT_APP_API_URL + "api/user/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData)
             })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success) {
+                        toggleLogin(res.success, res.document.token, res.document.role)
+                    }
+                    else {
+                        alert("Invalid Credentials ! Please try again...")
+                        window.location.reload()
+                    }
+                })
+        }
     }
 
     return (
@@ -48,10 +65,23 @@ export default function Login({ toggleLogin }) {
                                                 <div className="row">
                                                     <div className="col-lg-12">
                                                         <div className="mb-3">
+                                                            <label className="form-label">Role <span className="text-danger">*</span></label>
+                                                            <div className="form-icon position-relative">
+                                                                <select name="role" className="form-select form-control" aria-label="Default select example" required onChange={updateFormData}>
+                                                                    <option>Open this select menu</option>
+                                                                    <option value="Admin">Admin</option>
+                                                                    <option value="Kitchen Staff">Kitchen Staff</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-lg-12">
+                                                        <div className="mb-3">
                                                             <label className="form-label">User Name <span className="text-danger">*</span></label>
                                                             <div className="form-icon position-relative">
                                                                 <i data-feather="user" className="fea icon-sm icons"></i>
-                                                                <input type="email" className="form-control ps-5" placeholder="User Name :" name="username" required="" onChange={updateFormData} />
+                                                                <input type="email" className="form-control ps-5" placeholder="User Name :" name="username" required onChange={updateFormData} />
                                                             </div>
                                                         </div>
                                                     </div>

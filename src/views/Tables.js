@@ -6,12 +6,14 @@ import $ from 'jquery'
 import Table_AddEditModal from './components/modals/Table_AddEditModal'
 import DeleteModal from './components/modals/DeleteModal'
 
-export default function Tables({token}) {
+export default function Tables({ token }) {
 	let formData = new FormData();
 	const [tables, setTables] = useState([])
 
+	console.log(process.env.REACT_APP_API_URL)
+
 	function fetchData() {
-		fetch(process.env.REACT_APP_API_URL+"api/table",{
+		fetch(process.env.REACT_APP_API_URL + "api/table", {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -27,6 +29,7 @@ export default function Tables({token}) {
 					return item
 				})
 				setTables(documents)
+				console.log(tables)
 			})
 	}
 
@@ -57,7 +60,7 @@ export default function Tables({token}) {
 	}
 
 	const addTable = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/table/new", {
+		fetch(process.env.REACT_APP_API_URL + "api/table/new", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -81,7 +84,7 @@ export default function Tables({token}) {
 
 	function deleteTable() {
 		const id = document.querySelector("#hdnTableId").value
-		fetch(process.env.REACT_APP_API_URL+"api/table/delete/" + id, {
+		fetch(process.env.REACT_APP_API_URL + "api/table/delete/" + id, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -102,7 +105,7 @@ export default function Tables({token}) {
 	}
 
 	const updateTable = (e) => {
-		fetch(process.env.REACT_APP_API_URL+"api/table/update", {
+		fetch(process.env.REACT_APP_API_URL + "api/table/update", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -125,7 +128,7 @@ export default function Tables({token}) {
 	}
 
 	const toggleStatus = (tableId) => {
-		fetch(process.env.REACT_APP_API_URL+"api/table/update/status/" + tableId, {
+		fetch(process.env.REACT_APP_API_URL + "api/table/update/status/" + tableId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -192,7 +195,9 @@ export default function Tables({token}) {
 		{
 			title: "No of Seats", field: "noOfSeat", headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
 		},
-
+		{
+			title: "QR", render: item => { return <img src={item.img} style={imgStyle}/>}, headerStyle: { textAlign: "Left" }, cellStyle: { textAlign: "Left" }
+		},
 		{
 			title: "Status",
 			render: item => {
